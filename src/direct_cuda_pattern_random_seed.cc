@@ -29,11 +29,12 @@ int main()
 //endif
 
     f::cuda_pattern cpt{ pt, gpu_id };
-
+    float r1 = 0.9 + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(1-0.9)));
+    float r2 = 0.009 + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(0.011-0.009)));
     std::vector<double> ug_initial;
     ug_initial.resize( pt.ug_size*2 + 1 );
-    std::fill( ug_initial.begin(), ug_initial.end(), 0.01 );
-    ug_initial[0] = 1.0;
+    std::fill( ug_initial.begin(), ug_initial.end(), r2 );
+    ug_initial[0] = r1;
     ug_initial[1] = 0.0;
     ug_initial[pt.ug_size*2] = init_thickness;
 
