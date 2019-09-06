@@ -22,13 +22,13 @@ namespace f
         size_type*                          dim;
         value_type*                         I_diff;
         value_type*                         I_exp;
-        value_type*                         I_zigmoid;
+        value_type*                         I_zigmoid;//not used
         value_type*                         diag;
         value_type*                         ug;
         complex_type*                       cache;
 
-        value_type*                         beams;
-        value_type*                         kt_factor;
+        value_type*                         beams;//not used
+        value_type*                         kt_factor;//not used
 
         value_type*                         weights;
 

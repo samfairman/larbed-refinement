@@ -1,8 +1,12 @@
 #ifndef MMDTOLDGVEFSLCFGCKWFUBCNEWFXPPJNLJIVVTLITNTFLSJKNFIJOLAYASKRPIUMKQYGPLVQV
 #define MMDTOLDGVEFSLCFGCKWFUBCNEWFXPPJNLJIVVTLITNTFLSJKNFIJOLAYASKRPIUMKQYGPLVQV
 
-extern "C" int printf( const char* __restrict, ... );
-extern "C" void abort (void);
+//extern "C" int printf( const char* __restrict, ... );
+//extern "C" void abort (void);
+#include <cstdlib>
+#include <cstdio>
+
+
 #if 0
 namespace std
 {

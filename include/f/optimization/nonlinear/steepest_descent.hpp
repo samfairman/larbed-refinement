@@ -43,7 +43,7 @@ namespace f
             //std::cerr << "making step size.\n";
 #if 1
             //value_type const max_step_size = 1.6180339887498948482;
-            value_type const max_step_size = 3.1415926535897932384626433;
+	    value_type const max_step_size = 3.1415926535897932384626433;
             //value_type const max_step_size = 3.1415926535897932384626433 * 1024.0;
 #endif
 #if 0
@@ -56,13 +56,13 @@ namespace f
 
             for ( unsigned long index = 0; index != max_steps; ++index )
             {
-                /*
-                std::cerr << "\tbegin step size looping index " << index << " and step size " << step_size << "\n";
-                std::cerr << "direction is \n" << transpose( direction ) << "\n";
-                std::cerr << "current_solution is \n" << transpose( current_solution ) << "\n";
-                */
+                
+                //std::cerr << "\tbegin step size looping index " << index << " and step size " << step_size << "\n";
+                //std::cerr << "direction is \n" << ( direction ) << "\n";
+                //std::cerr << "current_solution is \n" << ( current_solution ) << "\n";
+                
                 trial_solution = current_solution + step_size * direction;
-                //std::cerr << "trial_solution is \n" << transpose( trial_solution ) << "\n";
+                //std::cerr << "trial_solution is \n" << ( trial_solution ) << "\n";
                 value_type const new_residual = merit_function( trial_solution.data() );
                 //std::cerr << "\tnew residual evaluated as " << new_residual << "\n";
                 //if ( new_residual < current_residual || step_size < eps )
@@ -181,14 +181,14 @@ namespace f
                 if ( std::isnan(direction_norm) || std::isinf(direction_norm) )
                 {
                     std::swap( current_solution, last_solution );
-                    //std::cerr << "Steepest Descent terminate with nan/inf\n";
+                    std::cerr << "Steepest Descent terminate with nan/inf\n";
                     break;
                 }
 
                 //if ( direction_norm < eps*eps )
                 if ( direction_norm < eps )
                 {
-                    //std::cerr << "Steepest Descent terminate with small direction norm " << direction_norm << "\n";
+                    std::cerr << "Steepest Descent terminate with small direction norm " << direction_norm << "\n";
                     break;
                 }
 
@@ -196,16 +196,17 @@ namespace f
 
                 auto new_residual = merit_function( last_solution.data() );
 
-                //if ( std::abs( new_residual - last_residual ) < std::abs( last_residual * eps * eps) ) 
-                if ( std::abs( new_residual - last_residual ) < std::abs( last_residual * eps) ) 
+                if ( std::abs( new_residual - last_residual ) < std::abs( last_residual * eps * eps) ) 
+                //if ( std::abs( new_residual - last_residual ) < std::abs( last_residual * eps) ) 
                     break;
 
                 if ( step_size < eps )
                     break;
+
             }
 
-            //if ( current_step >= total_step )
-                //std::cerr << "Steepest Descent terminate with total step " << current_step << "\n";
+            if ( current_step >= total_step )
+                std::cerr << "Steepest Descent terminate with total step " << current_step << "\n";
 
             std::copy( current_solution.begin(), current_solution.end(), oi_ );
             return merit_function( &(current_solution[0][0]) );

@@ -41,8 +41,9 @@ namespace f
         matrix_vector_type                      intensity;  //intensity[][][]
         complex_matrix_type                     ug;         //
         matrix_vector_type                      weights;  //weights[][][]
+matrix_vector_type i_push;
 
-        void dump( std::string const& paht )
+        void dump( std::string const& path )
         {
         }
 
@@ -238,6 +239,7 @@ namespace f
         matrix_type diag_x;
         matrix_type intensity_x;
         matrix_type weight_x;
+matrix_type intensity_test;
         for ( size_type index = 0; true; ++index )
         {
             std::string const& id = std::to_string( index );
@@ -245,8 +247,33 @@ namespace f
             std::string const& diag_file_path = dir_path_ + std::string{"/Diag_"} + id + std::string{".txt"};
             std::string const& intensity_file_path = dir_path_ + std::string{"/Intensities_"} + id + std::string{".txt"};
 
+std::string const& intensity_file0 = dir_path_ + std::string{"/Intensities_"} + std::string{"0"} + std::string{".txt"};
+std::string const& intensity_file1 = dir_path_ + std::string{"/Intensities_"} + std::string{"1"} + std::string{".txt"};
+std::string const& intensity_file30 = dir_path_ + std::string{"/Intensities_"} + std::string{"30"} + std::string{".txt"};
+std::string const& intensity_file31 = dir_path_ + std::string{"/Intensities_"} + std::string{"31"} + std::string{".txt"};
+
+
+
             if ( ! ( is_file_exist( ar_file_path ) && is_file_exist( diag_file_path ) && is_file_exist( intensity_file_path ) ) ) break;
 
+
+intensity_test.load( intensity_file0);
+pt.i_push.push_back(intensity_test);
+//std::cout<<"intensity_test_push0 \n"<< pt.i_push[0]<<std::endl;
+intensity_test.load( intensity_file1);
+pt.i_push.push_back(intensity_test);
+//std::cout<<"intensity_test_push1 \n"<< pt.i_push[1]<<std::endl;
+intensity_test.load( intensity_file30);
+pt.i_push.push_back(intensity_test);
+//std::cout<<"intensity_test_push30 \n"<< pt.i_push[2]<<std::endl;
+pt.i_push.push_back(intensity_file31);
+//std::cout<<"intensity_test_push31 \n"<< pt.i_push[3]<<std::endl;
+/*
+std::cout<<"intensity_test_push0 \n"<< pt.i_push[0]<<std::endl;
+std::cout<<"intensity_test_push1 \n"<< pt.i_push[1]<<std::endl;
+std::cout<<"intensity_test_push30 \n"<< pt.i_push[2]<<std::endl;
+std::cout<<"intensity_test_push31 \n"<< pt.i_push[3]<<std::endl;
+*/
             ar_x.load( ar_file_path );
             diag_x.load( diag_file_path );
             intensity_x.load( intensity_file_path );
@@ -259,6 +286,8 @@ namespace f
             pt.ar.push_back( ar_x );
             pt.diag.push_back( diag_x );
             pt.intensity.push_back( intensity_x );
+
+//std::cout<<"intensity_x_"<<index<<"\n"<< pt.intensity[index]<<std::endl;
 
             //load weights
             std::string const& weights_file_path = dir_path_ + std::string{"/Weights_"} + id + std::string{".txt"};
