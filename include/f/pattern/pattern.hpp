@@ -268,7 +268,6 @@ matrix_vector_type i_push;
             pt.diag.push_back( diag_x );
             pt.intensity.push_back( intensity_x );
 
-//std::cout<<"intensity_x_"<<index<<"\n"<< pt.intensity[index]<<std::endl;
 
             //load weights
             std::string const& weights_file_path = dir_path_ + std::string{"/Weights_"} + id + std::string{".txt"};
@@ -291,6 +290,11 @@ matrix_vector_type i_push;
         pt.ug_size++;
 
         pt.tilt_size = pt.diag.size();
+
+std::cout<<", thickness = "<<pt.thickness<<", ug_size = "<<pt.ug_size<<", tilt_size= "<<pt.tilt_size<<", column_index = "<<pt.column_index<<", \n ug = \n" << pt.ug <<std::endl;
+
+for(int i=0;i<(5);i++)
+std::cout<< "\n ar"<<i<<" = \n" << pt.ar[i] << ",\n diag"<<i<<" = \n" << pt.diag[i] << ", \nIntensity"<<i<<" = \n" << pt.intensity[i] << std::endl;
 
         return pt;
     }

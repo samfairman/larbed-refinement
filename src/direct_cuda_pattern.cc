@@ -10,9 +10,6 @@
 
 int main()
 {
-
-
-
     double const thickness_ = 1;
     //int gpu_id = 1;
     int gpu_id = 0;
@@ -34,6 +31,7 @@ int main()
 
     f::matrix<double> actual_ug;
     actual_ug.load( "/testpool/ops/samfairman/larbed-4-working-folder/icecap1/testdata/new_txt/ug.txt" );
+
     std::vector<double> ug_initial;
     ug_initial.resize( pt.ug_size*2 + 1 );
     std::copy( actual_ug.begin(), actual_ug.end(), ug_initial.begin() );
@@ -47,7 +45,7 @@ int main()
 
     std::cout << "Merit: " << merit_function( ug_initial.data() ) << std::endl;
     std::cout << "ABS: " << abs_function( ug_initial.data() ) << std::endl;
-cpt.dump_ug();
+    cpt.dump_ug();
     cpt.dump_a();
 
 //for(int index=0; index<80; index++)
