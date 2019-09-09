@@ -43,6 +43,7 @@ namespace f
             if ( config.max_dim < (pat.diag[index]).size() )
                 config.max_dim = pat.diag[index].size();
 
+
         config.tilt_size = pat.tilt_size;
 
         config.ug_size = pat.ug_size;

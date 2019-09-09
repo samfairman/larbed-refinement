@@ -50,15 +50,15 @@ namespace f
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
 
-
-            unsigned long offset = 6 * config.max_dim * config.max_dim * 0 * 2; //6*maxdim*maxdim*tilt_index*2 //times 2 because complex type.
+            unsigned long offset = config.max_dim * config.max_dim * 2 * 0;
+            //unsigned long offset = 6 * config.max_dim * config.max_dim * 0 * 2; //6*maxdim*maxdim*tilt_index*2 //times 2 because complex type.
 
             device_to_host_copy_n( data.cache+offset, a.size(), &a[0][0] );
-
             std::cout << "a is \n";
             std::cout << a << "\n";
-            a.save_as( "/testpool/ops/samfairman/larbed-4-working-folder/icecap1/bin/_dumped_a.txt" );
-	std::cout<<"max dim " << config.max_dim <<std::endl;
+            a.save_as( "/testpool/ops/samfairman/larbed-refinement/bin/_dumped_a.txt" );
+
+	std::cout<<"max dim " << config.max_dim << ", a.size = " << a.size()<<" ,data.cache =\n "<<data.cache<<std::endl;
         }
 
         void dump_I_diff()

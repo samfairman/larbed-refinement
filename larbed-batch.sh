@@ -7,10 +7,10 @@ export PATH=/usr/local/cuda:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/
 
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib64:/usr/lib64
 
-cd /testpool/ops/samfairman/larbed-4-working-folder/icecap1
+cd /testpool/ops/samfairman/larbed-refinement
 
 ## run the actual reconstruction 
 make
 
-cd /testpool/ops/samfairman/larbed-4-working-folder/icecap1/bin
+cd /testpool/ops/samfairman/larbed-refinement/bin
 time ./direct_cuda_pattern
