@@ -41,8 +41,8 @@ namespace f
 
         config.max_dim = 0;
         for ( unsigned long index = 0; index != pat.diag.size(); ++index ){
-            config.per_tilt_dim_size[index]=(pat.diag[index]).size();
-            std::cout<<"\nper tilt"<<index<<"\n"<<config.per_tilt_dim_size[index];
+            //config.per_tilt_dim_size[index]=(pat.diag[index]).size();
+            //std::cout<<"\nper tilt"<<index<<"\n"<<config.per_tilt_dim_size[index];
             if ( config.max_dim < (pat.diag[index]).size() )
                 config.max_dim = pat.diag[index].size();}
 

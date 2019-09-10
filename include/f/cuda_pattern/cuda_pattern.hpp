@@ -209,7 +209,7 @@ namespace f
             //std::cout << "\nbefore update_I_diff, dupm I_exp\n";
             //dump_I_exp();
 
-            make_pattern_intensity_diff( data.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim );//, config.per_tilt_dim_size
+            make_pattern_intensity_diff( data.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim );
 //std::cout << "\ndata.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim \n"<<data.weights<<" , "<<data.ug<<" , "<<data.ar<<" , "<<data.diag<<" , "<< config.thickness<<" , "<< data.dim<<" , "<< data.I_exp<<" , "<< data.I_diff<<" , "<< config.column_index<<" , "<<data.cache<<" , "<< config.tilt_size<<" , "<< config.max_dim << ", config.per_tilt_dim_size = "<<config.per_tilt_dim_size[0]<<","<<config.per_tilt_dim_size[1]<<","<<config.per_tilt_dim_size[2]<<","<<config.per_tilt_dim_size[3]<<","<<config.per_tilt_dim_size[4]<<","<<std::endl;;
 
             //std::cout << "\nafter update_I_diff, dupm I_diff\n";
