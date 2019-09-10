@@ -48,6 +48,7 @@ int main()
     //cpt.dump_ug();
     //cpt.dump_a();
 
+
 //for(int index=0; index<80; index++)
 //std::cout<<"intensity_x_"<<index<<"\n"<< pt.intensity[index]<<std::endl;
 
