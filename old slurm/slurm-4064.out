@@ -1,0 +1,151 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+nvcc src/cuda_pattern.cu -o ./obj/_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1 -m64 -dc -gencode arch=compute_70,code=sm_70 --relocatable-device-code true  -Xptxas -v
+ptxas info    : 9754 bytes gmem
+ptxas info    : Compiling entry function '_Z5ZaxpymddP7double2S0_' for 'sm_70'
+ptxas info    : Function properties for _Z5ZaxpymddP7double2S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 392 bytes cmem[0]
+ptxas info    : Function properties for cudaGetDevice
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z5DasummP7double2Pd' for 'sm_70'
+ptxas info    : Function properties for _Z5DasummP7double2Pd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 26 registers, 1024 bytes smem, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z8sum_diagP7double2mdd' for 'sm_70'
+ptxas info    : Function properties for _Z8sum_diagP7double2mdd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z5ZgemmP7double2S0_S0_md' for 'sm_70'
+ptxas info    : Function properties for _Z5ZgemmP7double2S0_S0_md
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 8704 bytes smem, 392 bytes cmem[0]
+ptxas info    : Function properties for cudaFuncGetAttributes
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z22extract_intensity_diffP7double2PdS1_mm' for 'sm_70'
+ptxas info    : Function properties for _Z22extract_intensity_diffP7double2PdS1_mm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 392 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z9compose_aPdPmS_dP7double2m' for 'sm_70'
+ptxas info    : Function properties for _Z9compose_aPdPmS_dP7double2m
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 400 bytes cmem[0]
+ptxas info    : Function properties for cudaOccupancyMaxActiveBlocksPerMultiprocessor
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z5ZscalmdP7double2' for 'sm_70'
+ptxas info    : Function properties for _Z5ZscalmdP7double2
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 27 registers, 376 bytes cmem[0]
+ptxas info    : Function properties for cudaMalloc
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z38make_individual_pattern_intensity_diffPdS_PmS_dS0_S_S_mP7double2mm' for 'sm_70'
+ptxas info    : Function properties for _Z38make_individual_pattern_intensity_diffPdS_PmS_dS0_S_S_mP7double2mm
+    24 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 72 registers, 448 bytes cmem[0], 104 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z5ZcopymP7double2S0_' for 'sm_70'
+ptxas info    : Function properties for _Z5ZcopymP7double2S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 376 bytes cmem[0]
+ptxas info    : Function properties for cudaDeviceGetAttribute
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z6Dznrm2mP7double2Pd' for 'sm_70'
+ptxas info    : Function properties for _Z6Dznrm2mP7double2Pd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 1024 bytes smem, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z34extract_intensity_diff_with_offsetP7double2PdS1_S1_mmdd' for 'sm_70'
+ptxas info    : Function properties for _Z34extract_intensity_diff_with_offsetP7double2PdS1_S1_mmdd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 416 bytes cmem[0], 8 bytes cmem[2]
+nvcc -dlink ./obj/_cuda_pattern.o -arch=sm_70 -o ./obj/cuda_pattern.o -m64 -lcudadevrt -L/usr/local/cuda/lib64  -rdc=true -Xptxas -v
+clang++ -o ./bin/direct_cuda_pattern ./obj/_cuda_pattern.o ./obj/direct_cuda_pattern.o ./obj/cuda_pattern.o  -lcudadevrt -lcublas -lcudart -m64 -L/usr/local/cuda/lib64  -lc++ -lc++abi -O3 -pthread
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+
+0    0.15736   0
+
+2    0.000395632   -4.2553e-09
+
+4    0.000395632   4.2553e-09
+
+6    0.0552805   -4.93373e-09
+
+8    0.0552805   4.93373e-09
+
+10    0.000395632   -4.2553e-09
+
+12    0.042788   0
+
+14    0.000395632   4.2553e-09
+
+16    0.042788   0
+
+18    -0.00109974   1.61334e-10
+
+20    -0.00109974   -1.61334e-10
+
+22    0.042788   3.82615e-09
+
+24    0.042788   -3.82615e-09
+
+26    -0.00109974   4.79724e-11
+
+28    -0.00109974   -4.79724e-11
+
+30    -0.00109974   1.61334e-10
+
+32    -0.00109974   -1.61334e-10
+
+34    -0.00109974   -4.79724e-11
+
+36    -0.00109974   4.79724e-11
+
+38    0.0552805   -4.93373e-09
+
+40    0.0552805   4.93373e-09
+
+solution:
+(0.86988600651480196824,-0.33308713579335641475)	
+(-0.0082173725381631257392,-0.051974710426440057232)	
+(-0.0082171906220159275647,-0.051975061198332256351)	
+(0.041993941563120251725,0.033257529182900910647)	
+(0.041993895769591074729,0.033257556935437880552)	
+(0.0082832899095130162193,-0.047429777476681089787)	
+(-0.044242005739910349182,0.021363126798528780936)	
+(0.0082835730825247394504,-0.047429883774185367662)	
+(-0.044241960117559736565,0.021363170085186775071)	
+(0.00025199886117335151044,0.00018496992421174310349)	
+(0.00025203054743194318495,0.00018908732697297818046)	
+(-0.047865730191140404282,0.024036176659930783006)	
+(-0.047865636633122779497,0.024036166802458264202)	
+(0.0001590433222982434204,2.3499437727126639905e-06)	
+(0.00015903235370042650976,2.3588696596474573002e-06)	
+(0.00016006309830566710275,0.00020981683299477142516)	
+(0.00016007681155198521736,0.00020980200972991769901)	
+(0.00018933706524871586098,6.3746456770417058661e-05)	
+(0.00018934807882498342312,6.3732983098835891723e-05)	
+(0.048770849625874829192,0.034157092408392965288)	
+(0.04877082190463868927,0.03415711055047525313)	
+
+
+real	0m4.383s
+user	0m2.688s
+sys	0m1.532s

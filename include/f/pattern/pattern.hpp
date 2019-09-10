@@ -291,10 +291,10 @@ matrix_vector_type i_push;
 
         pt.tilt_size = pt.diag.size();
 
-std::cout<<", thickness = "<<pt.thickness<<", ug_size = "<<pt.ug_size<<", tilt_size= "<<pt.tilt_size<<", column_index = "<<pt.column_index<<", \n ug = \n" << pt.ug <<std::endl;
+//std::cout<<", thickness = "<<pt.thickness<<", ug_size = "<<pt.ug_size<<", tilt_size= "<<pt.tilt_size<<", column_index = "<<pt.column_index<<", \n ug = \n" << pt.ug <<std::endl;
 
-for(int i=0;i<(5);i++)
-std::cout<< "\n ar"<<i<<" = \n" << pt.ar[i] << ",\n diag"<<i<<" = \n" << pt.diag[i] << ", \nIntensity"<<i<<" = \n" << pt.intensity[i] << std::endl;
+//for(int i=0;i<(5);i++)
+//std::cout<< "\n ar"<<i<<" = \n" << pt.ar[i] << ",\n diag"<<i<<" = \n" << pt.diag[i] << ", \nIntensity"<<i<<" = \n" << pt.intensity[i] << std::endl;
 
         return pt;
     }

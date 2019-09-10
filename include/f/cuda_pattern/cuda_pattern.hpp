@@ -45,7 +45,8 @@ namespace f
         {
             //std::vector<matrix<std::complex<double>>> a{ config.max_dim,config.max_dim*2*config.tilt_size*6};
             //matrix<double> a{ config.max_dim, config.max_dim+config.max_dim };
-            matrix<double> a{ 3, 6 }; // manually define A matrix to dump
+            //matrix<double> a{ 6*config.max_dim*config.max_dim*config.tilt_size,2};
+            matrix<double> a{ 5, 10 }; // manually define A matrix to dump
 
 
             int current_id;
@@ -202,19 +203,20 @@ namespace f
             update_thickness( thickness );
             update_ug( ug );
 
-            //std::cout << "\nbefore update_I_diff, dupm I_diff\n";
-            //dump_I_diff();
+            std::cout << "\nbefore update_I_diff, dupm I_diff\n";
+            dump_I_diff();
 
-            //std::cout << "\nbefore update_I_diff, dupm I_exp\n";
-            //dump_I_exp();
+            std::cout << "\nbefore update_I_diff, dupm I_exp\n";
+            dump_I_exp();
 
             make_pattern_intensity_diff( data.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim );
+std::cout << "\ndata.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim \n"<<data.weights<<" , "<<data.ug<<" , "<<data.ar<<" , "<<data.diag<<" , "<< config.thickness<<" , "<< data.dim<<" , "<< data.I_exp<<" , "<< data.I_diff<<" , "<< config.column_index<<" , "<<data.cache<<" , "<< config.tilt_size<<" , "<< config.max_dim <<std::endl;;
 
-            //std::cout << "\nafter update_I_diff, dupm I_diff\n";
-            //dump_I_diff();
-            //std::cout << "\nafter update_I_diff, dupm I_exp\n";
-            //dump_I_exp();
-            //std::cout << "\n\n";
+            std::cout << "\nafter update_I_diff, dupm I_diff\n";
+            dump_I_diff();
+            std::cout << "\nafter update_I_diff, dupm I_exp\n";
+            dump_I_exp();
+            std::cout << "\n\n";
         }
 
         void update_thickness( value_type thickness )

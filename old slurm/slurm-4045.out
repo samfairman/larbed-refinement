@@ -1,0 +1,77 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+src/direct_cuda_pattern.cc:68:92: error: variable 'ug_initial' cannot be implicitly captured in a lambda with no capture-default specified
+                return penalty_weight * std::inner_product(ugs, ugs + ugSize, ugs, 0.0) + merit_function(ug_initial.data() );
+                                                                                                         ^
+src/direct_cuda_pattern.cc:36:25: note: 'ug_initial' declared here
+    std::vector<double> ug_initial;
+                        ^
+src/direct_cuda_pattern.cc:66:27: note: lambda expression begins here
+        auto&& target_function = [&merit_function, penalty_weight, ugSize](double* ugs)
+                                 ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+2 errors generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+
+0    0.15736   0
+
+2    0.000395632   -4.2553e-09
+
+4    0.000395632   4.2553e-09
+
+6    0.0552805   -4.93373e-09
+
+8    0.0552805   4.93373e-09
+
+10    0.000395632   -4.2553e-09
+
+12    0.042788   0
+
+14    0.000395632   4.2553e-09
+
+16    0.042788   0
+
+18    -0.00109974   1.61334e-10
+
+20    -0.00109974   -1.61334e-10
+
+22    0.042788   3.82615e-09
+
+24    0.042788   -3.82615e-09
+
+26    -0.00109974   4.79724e-11
+
+28    -0.00109974   -4.79724e-11
+
+30    -0.00109974   1.61334e-10
+
+32    -0.00109974   -1.61334e-10
+
+34    -0.00109974   -4.79724e-11
+
+36    -0.00109974   4.79724e-11
+
+38    0.0552805   -4.93373e-09
+
+40    0.0552805   4.93373e-09
+slurmstepd: *** JOB 4045 ON sem-icecap1 CANCELLED AT 2019-08-19T19:06:02 ***

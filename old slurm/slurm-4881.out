@@ -1,0 +1,20 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+include/f/cuda_pattern/cuda_pattern.hpp:54:1: error: unknown type name 'u'
+u           //Unsigned long offset = 6 * 3 * 3 * 0 * 2;
+^
+1 error generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+Merit: 3.30743e-17
+ABS: 2.47714e-07
+a is 
+0	1.0601135933433038472e-16	-5.6559583992893946596e-10	4.7194770462444653137e-05	5.6559583992893946596e-10	4.7194770462444653137e-05	
+-5.6559583992893946596e-10	4.7194770462444653137e-05	5.6559583992893946596e-10	4.7194770462444653137e-05	-0	0.0056652896767863721722	
+-0	0.0056652896767863721722	5.0758142583227931055e-10	0.0056652896767863721722	-5.0758142583227931055e-10	0.0056652896767863721722	
+
+max dim 121
+
+real	2m8.467s
+user	2m1.900s
+sys	0m6.016s

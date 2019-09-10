@@ -44,9 +44,9 @@ int main()
     auto const& abs_function = cpt.make_abs_function();
 
     std::cout << "Merit: " << merit_function( ug_initial.data() ) << std::endl;
-    std::cout << "ABS: " << abs_function( ug_initial.data() ) << std::endl;
-    cpt.dump_ug();
-    cpt.dump_a();
+    //std::cout << "ABS: " << abs_function( ug_initial.data() ) << std::endl;
+    //cpt.dump_ug();
+    //cpt.dump_a();
 
 //for(int index=0; index<80; index++)
 //std::cout<<"intensity_x_"<<index<<"\n"<< pt.intensity[index]<<std::endl;

@@ -1,0 +1,28 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:2:
+include/f/pattern/pattern.hpp:294:30: error: use of undeclared identifier 'thickness'; did you mean 'thickness_'?
+std::cout<<", thickness = "<<thickness<<", ug_size = "<<ug_size<<std::endl;
+                             ^~~~~~~~~
+                             thickness_
+include/f/pattern/pattern.hpp:185:89: note: 'thickness_' declared here
+    pattern<T> const make_pattern( std::string const& dir_path_, std::complex<T> const& thickness_, std::size_t column_index_ = 0 )
+                                                                                        ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+2 errors generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+cache size = 11232
+Merit: 8.58439e-08
+ABS: 0.0011171
+direct_cuda_pattern: include/f/device/device_assert/cuda_assert.hpp:30: void cuda_result_assert::report_error(const cudaError_t&, const char*, long unsigned int) const: Assertion `0' failed.
+
+ug=
+1	0	0.0005930819999999999842	-6.3790100000000002881e-09	0.0005930819999999999842	6.3790100000000002881e-09	0.082869600000000001594	-7.396030000000000153e-09	0.082869600000000001594	7.396030000000000153e-09	0.0005930819999999999842	6.3790100000000002881e-09	0.064142500000000005067	0	0.0005930819999999999842	-6.3790100000000002881e-09	0.064142500000000005067	0	
+
+include/f/host/cuda/cuda_utility.hpp:14: cuda runtime error occured:
+[[ERROR]]: This indicates that one or more of the parameters passed to the API call is not within an acceptable range of values.
+/var/spool/slurmd/job05075/slurm_script: line 16:   601 Aborted                 (core dumped) ./direct_cuda_pattern
+
+real	0m0.915s
+user	0m0.128s
+sys	0m0.632s

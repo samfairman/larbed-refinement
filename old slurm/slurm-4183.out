@@ -1,0 +1,562 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:1:
+include/f/optimization/nonlinear/steepest_descent.hpp:46:51: warning: expression result unused [-Wunused-value]
+            value_type const max_step_size = 0.01;3.1415926535897932384626433;
+                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/f/optimization/nonlinear/steepest_descent.hpp:46:51: warning: expression result unused [-Wunused-value]
+            value_type const max_step_size = 0.01;3.1415926535897932384626433;
+                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/f/optimization/nonlinear/steepest_descent.hpp:131:17: note: in instantiation of member function 'f::default_steepest_descent<double, f::simple_steepest_descent<double> >::make_step_size' requested here
+            zen.make_step_size(); //
+                ^
+include/f/optimization/nonlinear/steepest_descent.hpp:177:21: note: in instantiation of member function 'f::default_steepest_descent<double, f::simple_steepest_descent<double> >::iterate' requested here
+                zen.iterate();
+                    ^
+src/direct_cuda_pattern.cc:117:7: note: in instantiation of function template specialization 'f::default_steepest_descent<double, f::simple_steepest_descent<double> >::operator()<std::__1::__wrap_iter<double *> >' requested here
+    sd( ug_initial.begin() );
+      ^
+2 warnings generated.
+nvcc src/cuda_pattern.cu -o ./obj/_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1 -m64 -dc -gencode arch=compute_70,code=sm_70 --relocatable-device-code true  -Xptxas -v
+ptxas info    : 9754 bytes gmem
+ptxas info    : Compiling entry function '_Z5ZaxpymddP7double2S0_' for 'sm_70'
+ptxas info    : Function properties for _Z5ZaxpymddP7double2S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 392 bytes cmem[0]
+ptxas info    : Function properties for cudaGetDevice
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z5DasummP7double2Pd' for 'sm_70'
+ptxas info    : Function properties for _Z5DasummP7double2Pd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 26 registers, 1024 bytes smem, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z8sum_diagP7double2mdd' for 'sm_70'
+ptxas info    : Function properties for _Z8sum_diagP7double2mdd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z5ZgemmP7double2S0_S0_md' for 'sm_70'
+ptxas info    : Function properties for _Z5ZgemmP7double2S0_S0_md
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 8704 bytes smem, 392 bytes cmem[0]
+ptxas info    : Function properties for cudaFuncGetAttributes
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z22extract_intensity_diffP7double2PdS1_mm' for 'sm_70'
+ptxas info    : Function properties for _Z22extract_intensity_diffP7double2PdS1_mm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 392 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z9compose_aPdPmS_dP7double2m' for 'sm_70'
+ptxas info    : Function properties for _Z9compose_aPdPmS_dP7double2m
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 400 bytes cmem[0]
+ptxas info    : Function properties for cudaOccupancyMaxActiveBlocksPerMultiprocessor
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z5ZscalmdP7double2' for 'sm_70'
+ptxas info    : Function properties for _Z5ZscalmdP7double2
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 27 registers, 376 bytes cmem[0]
+ptxas info    : Function properties for cudaMalloc
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z38make_individual_pattern_intensity_diffPdS_PmS_dS0_S_S_mP7double2mm' for 'sm_70'
+ptxas info    : Function properties for _Z38make_individual_pattern_intensity_diffPdS_PmS_dS0_S_S_mP7double2mm
+    24 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 72 registers, 448 bytes cmem[0], 104 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z5ZcopymP7double2S0_' for 'sm_70'
+ptxas info    : Function properties for _Z5ZcopymP7double2S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 376 bytes cmem[0]
+ptxas info    : Function properties for cudaDeviceGetAttribute
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z6Dznrm2mP7double2Pd' for 'sm_70'
+ptxas info    : Function properties for _Z6Dznrm2mP7double2Pd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 1024 bytes smem, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z34extract_intensity_diff_with_offsetP7double2PdS1_S1_mmdd' for 'sm_70'
+ptxas info    : Function properties for _Z34extract_intensity_diff_with_offsetP7double2PdS1_S1_mmdd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 416 bytes cmem[0], 8 bytes cmem[2]
+nvcc -dlink ./obj/_cuda_pattern.o -arch=sm_70 -o ./obj/cuda_pattern.o -m64 -lcudadevrt -L/usr/local/cuda/lib64  -rdc=true -Xptxas -v
+clang++ -o ./bin/direct_cuda_pattern ./obj/_cuda_pattern.o ./obj/direct_cuda_pattern.o ./obj/cuda_pattern.o  -lcudadevrt -lcublas -lcudart -m64 -L/usr/local/cuda/lib64  -lc++ -lc++abi -O3 -pthread
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+r : 0
+Initial Ugs:
+
+0    0.15736   0
+
+2    -0.00109974   4.79724e-11
+
+4    -0.00109974   1.61334e-10
+
+6    -0.000461178   3.25869e-09
+
+8    -0.000461178   -1.4721e-09
+
+10    -0.00109974   -4.79724e-11
+
+12    0.0215057   -3.81975e-09
+
+14    0.0552805   4.93373e-09
+
+16    0.0174135   -1.54216e-09
+
+18    -0.00109974   -1.61334e-10
+
+20    0.0215057   3.81975e-09
+
+22    0.0174135   1.34334e-09
+
+24    -0.000461178   -3.25869e-09
+
+26    0.0552805   -4.93373e-09
+
+28    0.0174135   -1.34334e-09
+
+30    -0.000461178   1.4721e-09
+
+32    0.0174135   1.54216e-09
+
+34    0.000395632   -4.2553e-09
+
+36    0.0552805   4.93373e-09
+
+38    0.042788   0
+
+40    0.016622   3.89904e-09
+
+42    -0.000461178   3.25869e-09
+
+44    0.016622   2.38973e-09
+
+46    0.000395632   4.2553e-09
+
+48    0.0366479   6.54982e-09
+
+50    0.0552805   -4.93373e-09
+
+52    0.016622   -2.38973e-09
+
+54    0.042788   3.82615e-09
+
+56    -0.00109974   4.79724e-11
+
+58    0.0106413   0
+
+60    0.042788   0
+
+62    0.016622   2.38973e-09
+
+64    -0.000308613   2.83674e-09
+
+66    0.016622   -3.89904e-09
+
+68    0.042788   -3.82615e-09
+
+70    0.000395632   -4.2553e-09
+
+72    -0.000461178   -3.25869e-09
+
+74    0.0366479   -6.54982e-09
+
+76    -0.00109974   -4.79724e-11
+
+78    -0.000308613   -2.83674e-09
+
+80    0.000395632   4.2553e-09
+
+82    -0.000308613   -8.10342e-10
+
+84    0.016622   -2.38973e-09
+
+86    0.0106413   0
+
+88    -0.000308613   8.10342e-10
+
+90    0.016622   3.89904e-09
+
+92    0.016622   -3.89904e-09
+
+94    0.0366479   0
+
+96    -0.000461178   1.4721e-09
+
+98    0.0366479   0
+
+100    -0.000461178   -1.4721e-09
+
+102    -0.00109974   -1.61334e-10
+
+104    0.0106413   2.60453e-10
+
+106    -0.00109974   1.61334e-10
+
+108    0.0106413   -2.60453e-10
+
+110    -0.000722316   -4.12002e-10
+
+112    -0.000722316   4.12002e-10
+
+114    -0.000722316   -4.12002e-10
+
+116    -0.000722316   4.12002e-10
+
+118    0.0215057   3.81975e-09
+
+120    -0.000308613   2.83674e-09
+
+122    -0.000308613   8.10342e-10
+
+124    0.0215057   -3.81975e-09
+
+126    -0.000308613   -8.10342e-10
+
+128    -0.000308613   -2.83674e-09
+
+130    0.0174135   1.54216e-09
+
+132    0.0174135   -1.54216e-09
+
+134    0.0174135   1.34334e-09
+
+136    0.0174135   -1.34334e-09
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+		breaking with new residual
+Steepest Descent terminate with total step 200
+
+solution:
+(1.0081554422962795137,-0.0082213196982879530039)	
+(-0.020151880502444100701,0.0057934926352537236688)	
+(0.0086071420497326744936,0.0019691618731787286292)	
+(0.013924185743928747111,-0.010414984170503989794)	
+(0.0037483622832838372346,-0.017592936419618860483)	
+(-0.00029149523366336178506,-0.0046178281374444629659)	
+(-0.027321940463059263965,0.043678547479764393002)	
+(-0.028163096090627257745,-0.030556283566248888112)	
+(0.010367605357570690294,-0.030048732951977692729)	
+(0.0081917300769824164669,0.0028134048181214731631)	
+(-0.019531516188143329543,0.038429591948495496478)	
+(0.011345904483946513477,-0.031431353395883321333)	
+(0.0092203773121286181774,0.011559839306770219175)	
+(-0.050459702784474536053,0.045781574516098592909)	
+(0.0094976233067256190384,-0.03013586995608319441)	
+(0.0087300774285956634496,-0.00031598458778987900068)	
+(0.011045367615189673888,-0.030878303719376921921)	
+(0.010283859523690538212,0.0042480419358561644083)	
+(0.056930116649837367304,-0.01600055019723743352)	
+(-0.021441635238759190057,-0.031537738815538104986)	
+(0.0099213286666261380625,0.016959959710109780151)	
+(0.0075240342632410042722,0.013008328246861331282)	
+(0.0035875331239475600695,0.016112246407893982686)	
+(0.0033723210602276260106,0.0087384140972666703162)	
+(-0.029813259546829218999,0.024898333829522854843)	
+(0.056290247520599266673,0.00080230588356934909831)	
+(-0.032502866570264708768,-0.0056850354598670452266)	
+(-0.03718500946573150695,-0.034300614186661713967)	
+(0.00067813375166004392046,0.004706871107843947806)	
+(0.026661892644986230627,0.012424872853207914042)	
+(-0.003324862668111335396,0.04581926229235801229)	
+(-0.020729988069621087948,0.013042744130381218187)	
+(0.046397804536281068988,-0.0074467194527882800414)	
+(0.00092099032075361767988,-0.0080863045875561277709)	
+(-0.03643726910882857245,0.028360537815637857501)	
+(0.0020362069698114638149,0.011504667386667876208)	
+(-0.020149134373050121144,0.0016834453639379327351)	
+(-0.015896786707384497755,-0.034991070522950133703)	
+(0.0045309330197640758017,-0.0096362121773714889267)	
+(0.048497125164658511087,-0.0018249807053697479891)	
+(0.009904627676871859826,-0.010273079992425561066)	
+(0.036906841039207070876,-0.0096713154334641549675)	
+(-0.0020732003583184160402,-0.0066719971404643908103)	
+(0.034303044614502335719,0.024089081647545425302)	
+(0.046639270623412283634,-0.0059397792656678939996)	
+(0.034774168323802416569,-0.012630364380770992688)	
+(0.0014340305107880208044,0.01316433280048994077)	
+(0.006823626374577257403,0.04275722459618731125)	
+(-0.021489086159532624215,0.0066986917632745153137)	
+(-0.009718778557360406925,-0.042070195182533166867)	
+(-0.017611228902806690122,-0.013781586042530531364)	
+(-0.0069269957425860447658,0.01572395354986570043)	
+(0.037419941415500777848,0.036019721118958562822)	
+(-0.00090101607478229920299,-0.003596963486232471717)	
+(0.019949415330086199549,0.0070585819025008331509)	
+(0.022296243392536826272,0.01577587534213455156)	
+(0.0079008015962601981647,0.0076737361084302938355)	
+(0.0098196212888421053472,-0.014633418771094907143)	
+(-0.0028218059670736404983,-0.011983107139730957494)	
+(-0.021556133916438565551,-0.03059326971949284657)	
+(0.078930854441872103089,0.011152582520087632109)	
+(0.070446419570674129185,0.0069802961090321448412)	
+(-0.038570965749171737258,-0.021598168179359084062)	
+(0.070188420457781036665,0.0081902382101185760427)	
+(0.068528488710628304714,0.010441703304682832879)	
+(0.012279645231065686173,-0.0091236842068970341879)	
+(0.005286524165878189567,-0.0052851701732244049312)	
+(0.0063334952458158916971,-0.0060371890004257567491)	
+(0.0096859731803981396342,-0.0069756029000645055835)	
+
+
+real	9m22.607s
+user	5m57.564s
+sys	2m41.132s

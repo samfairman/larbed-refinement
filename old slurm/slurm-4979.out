@@ -1,0 +1,284 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+nvcc src/cuda_pattern.cu -o ./obj/_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1 -m64 -dc -gencode arch=compute_70,code=sm_70 --relocatable-device-code true  -Xptxas -v
+ptxas info    : 9754 bytes gmem
+ptxas info    : Compiling entry function '_Z5ZaxpymddP7double2S0_' for 'sm_70'
+ptxas info    : Function properties for _Z5ZaxpymddP7double2S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 392 bytes cmem[0]
+ptxas info    : Function properties for cudaGetDevice
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z5DasummP7double2Pd' for 'sm_70'
+ptxas info    : Function properties for _Z5DasummP7double2Pd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 26 registers, 1024 bytes smem, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z8sum_diagP7double2mdd' for 'sm_70'
+ptxas info    : Function properties for _Z8sum_diagP7double2mdd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 10 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z5ZgemmP7double2S0_S0_md' for 'sm_70'
+ptxas info    : Function properties for _Z5ZgemmP7double2S0_S0_md
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 8704 bytes smem, 392 bytes cmem[0]
+ptxas info    : Function properties for cudaFuncGetAttributes
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Function properties for cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z22extract_intensity_diffP7double2PdS1_mm' for 'sm_70'
+ptxas info    : Function properties for _Z22extract_intensity_diffP7double2PdS1_mm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 392 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z9compose_aPdPmS_dP7double2m' for 'sm_70'
+ptxas info    : Function properties for _Z9compose_aPdPmS_dP7double2m
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 30 registers, 400 bytes cmem[0]
+ptxas info    : Function properties for cudaOccupancyMaxActiveBlocksPerMultiprocessor
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z5ZscalmdP7double2' for 'sm_70'
+ptxas info    : Function properties for _Z5ZscalmdP7double2
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 27 registers, 376 bytes cmem[0]
+ptxas info    : Function properties for cudaMalloc
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z38make_individual_pattern_intensity_diffPdS_PmS_dS0_S_S_mP7double2mm' for 'sm_70'
+ptxas info    : Function properties for _Z38make_individual_pattern_intensity_diffPdS_PmS_dS0_S_S_mP7double2mm
+    24 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 72 registers, 448 bytes cmem[0], 104 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z5ZcopymP7double2S0_' for 'sm_70'
+ptxas info    : Function properties for _Z5ZcopymP7double2S0_
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 376 bytes cmem[0]
+ptxas info    : Function properties for cudaDeviceGetAttribute
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Compiling entry function '_Z6Dznrm2mP7double2Pd' for 'sm_70'
+ptxas info    : Function properties for _Z6Dznrm2mP7double2Pd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 28 registers, 1024 bytes smem, 376 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z34extract_intensity_diff_with_offsetP7double2PdS1_S1_mmdd' for 'sm_70'
+ptxas info    : Function properties for _Z34extract_intensity_diff_with_offsetP7double2PdS1_S1_mmdd
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 24 registers, 416 bytes cmem[0], 8 bytes cmem[2]
+nvcc -dlink ./obj/_cuda_pattern.o -arch=sm_70 -o ./obj/cuda_pattern.o -m64 -lcudadevrt -L/usr/local/cuda/lib64  -rdc=true -Xptxas -v
+clang++ -o ./bin/direct_cuda_pattern ./obj/_cuda_pattern.o ./obj/direct_cuda_pattern.o ./obj/cuda_pattern.o  -lcudadevrt -lcublas -lcudart -m64 -L/usr/local/cuda/lib64  -lc++ -lc++abi -O3 -pthread
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_30.txt"
+Error: Failed to open file "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/Intensities_31.txt"
+*** Error in `./direct_cuda_pattern': free(): invalid next size (normal): 0x00000000020d39d0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x777e5)[0x7fa2bdd497e5]
+/lib/x86_64-linux-gnu/libc.so.6(+0x8037a)[0x7fa2bdd5237a]
+/lib/x86_64-linux-gnu/libc.so.6(cfree+0x4c)[0x7fa2bdd5653c]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(+0x2f0625)[0x7fa2bcf29625]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(+0x1e13e4)[0x7fa2bce1a3e4]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(+0x1ca257)[0x7fa2bce03257]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(+0x2faf86)[0x7fa2bcf33f86]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(+0xe4f3e)[0x7fa2bcd1df3e]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(+0xe5103)[0x7fa2bcd1e103]
+/usr/lib/x86_64-linux-gnu/libcuda.so.1(cuLaunchKernel+0xc0)[0x7fa2bce74e60]
+/usr/local/cuda/lib64/libcudart.so.9.1(+0x15f70)[0x7fa2bf09df70]
+/usr/local/cuda/lib64/libcudart.so.9.1(cudaLaunch+0x1c8)[0x7fa2bf0bc838]
+./direct_cuda_pattern[0x4047ba]
+./direct_cuda_pattern[0x404499]
+./direct_cuda_pattern[0x404524]
+./direct_cuda_pattern[0x403776]
+./direct_cuda_pattern[0x40f9be]
+./direct_cuda_pattern[0x40f833]
+./direct_cuda_pattern[0x4065f2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf0)[0x7fa2bdcf2830]
+./direct_cuda_pattern[0x403589]
+======= Memory map: ========
+00400000-00543000 r-xp 00000000 00:2e 1139552                            /testpool/ops/samfairman/larbed-refinement/bin/direct_cuda_pattern
+00742000-00743000 r--p 00142000 00:2e 1139552                            /testpool/ops/samfairman/larbed-refinement/bin/direct_cuda_pattern
+00743000-00744000 rw-p 00143000 00:2e 1139552                            /testpool/ops/samfairman/larbed-refinement/bin/direct_cuda_pattern
+01381000-020f5000 rw-p 00000000 00:00 0                                  [heap]
+200000000-200200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+200200000-200600000 ---p 00000000 00:00 0 
+200600000-200800000 rw-s 00000000 00:06 541                              /dev/nvidia2
+200800000-200c00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+200c00000-200e00000 rw-s 00000000 00:06 541                              /dev/nvidia2
+200e00000-201c00000 ---p 00000000 00:00 0 
+201c00000-202000000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+202000000-202e00000 ---p 00000000 00:00 0 
+202e00000-203200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+203200000-204000000 ---p 00000000 00:00 0 
+204000000-204400000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+204400000-205200000 ---p 00000000 00:00 0 
+205200000-205600000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+205600000-206400000 ---p 00000000 00:00 0 
+206400000-206800000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+206800000-207600000 ---p 00000000 00:00 0 
+207600000-207a00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+207a00000-208800000 ---p 00000000 00:00 0 
+208800000-208c00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+208c00000-209a00000 ---p 00000000 00:00 0 
+209a00000-209e00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+209e00000-20a200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20a200000-20a600000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20a600000-20aa00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20aa00000-20ae00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20ae00000-20b200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20b200000-20b600000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20b600000-20ba00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20ba00000-20be00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20be00000-20c200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20c200000-20c600000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20c600000-20ca00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20ca00000-20ce00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20ce00000-20d200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20d200000-20d600000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20d600000-20da00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20da00000-20de00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20de00000-20e200000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20e200000-20e600000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20e600000-20ea00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20ea00000-20ec00000 ---p 00000000 00:00 0 
+20ec00000-20ee00000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20ee00000-20f000000 rw-s 00000000 00:06 535                              /dev/nvidiactl
+20f000000-20f400000 ---p 00000000 00:00 0 
+20f400000-21028d000 rw-s 00000000 00:05 122567745                        /dev/zero (deleted)
+21028d000-300200000 ---p 00000000 00:00 0 
+10000000000-10004000000 ---p 00000000 00:00 0 
+7fa214200000-7fa298000000 ---p 00000000 00:00 0 
+7fa298000000-7fa298021000 rw-p 00000000 00:00 0 
+7fa298021000-7fa29c000000 ---p 00000000 00:00 0 
+7fa29c000000-7fa29c021000 rw-p 00000000 00:00 0 
+7fa29c021000-7fa2a0000000 ---p 00000000 00:00 0 
+7fa2a0000000-7fa2b0000000 ---p 00000000 00:00 0 
+7fa2b0e00000-7fa2b2400000 ---p 00000000 00:00 0 
+7fa2b2400000-7fa2b2600000 rw-s 00000000 00:05 122567744                  /dev/zero (deleted)
+7fa2b2600000-7fa2b4600000 ---p 00000000 00:00 0 
+7fa2b4600000-7fa2b4819000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2b4819000-7fa2b4c00000 ---p 00000000 00:00 0 
+7fa2b4c00000-7fa2b4e00000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2b4e00000-7fa2b5000000 rw-s 00000000 00:05 122567742                  /dev/zero (deleted)
+7fa2b5000000-7fa2b5200000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2b5200000-7fa2b5400000 rw-s 00000000 00:05 122567741                  /dev/zero (deleted)
+7fa2b5400000-7fa2b5800000 ---p 00000000 00:00 0 
+7fa2b59e5000-7fa2b59e6000 ---p 00000000 00:00 0 
+7fa2b59e6000-7fa2b61e6000 rw-p 00000000 00:00 0 
+7fa2b61e6000-7fa2b61e7000 ---p 00000000 00:00 0 
+7fa2b61e7000-7fa2b69e7000 rw-p 00000000 00:00 0 
+7fa2b69e7000-7fa2bc9e7000 ---p 00000000 00:00 0 
+7fa2bc9e7000-7fa2bca2a000 r-xp 00000000 fc:00 5254046                    /usr/lib/x86_64-linux-gnu/libnvidia-fatbinaryloader.so.387.26
+7fa2bca2a000-7fa2bcc29000 ---p 00043000 fc:00 5254046                    /usr/lib/x86_64-linux-gnu/libnvidia-fatbinaryloader.so.387.26
+7fa2bcc29000-7fa2bcc34000 rw-p 00042000 fc:00 5254046                    /usr/lib/x86_64-linux-gnu/libnvidia-fatbinaryloader.so.387.26
+7fa2bcc34000-7fa2bcc39000 rw-p 00000000 00:00 0 
+7fa2bcc39000-7fa2bd567000 r-xp 00000000 fc:00 5254041                    /usr/lib/x86_64-linux-gnu/libcuda.so.387.26
+7fa2bd567000-7fa2bd766000 ---p 0092e000 fc:00 5254041                    /usr/lib/x86_64-linux-gnu/libcuda.so.387.26
+7fa2bd766000-7fa2bd8b8000 rw-p 0092d000 fc:00 5254041                    /usr/lib/x86_64-linux-gnu/libcuda.so.387.26
+7fa2bd8b8000-7fa2bd8c6000 rw-p 00000000 00:00 0 
+7fa2bd8c6000-7fa2bd8c9000 r-xp 00000000 fc:00 12322944                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7fa2bd8c9000-7fa2bdac8000 ---p 00003000 fc:00 12322944                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7fa2bdac8000-7fa2bdac9000 r--p 00002000 fc:00 12322944                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7fa2bdac9000-7fa2bdaca000 rw-p 00003000 fc:00 12322944                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7fa2bdaca000-7fa2bdad1000 r-xp 00000000 fc:00 12322942                   /lib/x86_64-linux-gnu/librt-2.23.so
+7fa2bdad1000-7fa2bdcd0000 ---p 00007000 fc:00 12322942                   /lib/x86_64-linux-gnu/librt-2.23.so
+7fa2bdcd0000-7fa2bdcd1000 r--p 00006000 fc:00 12322942                   /lib/x86_64-linux-gnu/librt-2.23.so
+7fa2bdcd1000-7fa2bdcd2000 rw-p 00007000 fc:00 12322942                   /lib/x86_64-linux-gnu/librt-2.23.so
+7fa2bdcd2000-7fa2bde92000 r-xp 00000000 fc:00 12322967                   /lib/x86_64-linux-gnu/libc-2.23.so
+7fa2bde92000-7fa2be092000 ---p 001c0000 fc:00 12322967                   /lib/x86_64-linux-gnu/libc-2.23.so
+7fa2be092000-7fa2be096000 r--p 001c0000 fc:00 12322967                   /lib/x86_64-linux-gnu/libc-2.23.so
+7fa2be096000-7fa2be098000 rw-p 001c4000 fc:00 12322967                   /lib/x86_64-linux-gnu/libc-2.23.so
+7fa2be098000-7fa2be09c000 rw-p 00000000 00:00 0 
+7fa2be09c000-7fa2be0b4000 r-xp 00000000 fc:00 12322947                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fa2be0b4000-7fa2be2b3000 ---p 00018000 fc:00 12322947                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fa2be2b3000-7fa2be2b4000 r--p 00017000 fc:00 12322947                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fa2be2b4000-7fa2be2b5000 rw-p 00018000 fc:00 12322947                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fa2be2b5000-7fa2be2b9000 rw-p 00000000 00:00 0 
+7fa2be2b9000-7fa2be2cf000 r-xp 00000000 fc:00 12321295                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fa2be2cf000-7fa2be4ce000 ---p 00016000 fc:00 12321295                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fa2be4ce000-7fa2be4cf000 rw-p 00015000 fc:00 12321295                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fa2be4cf000-7fa2be5d7000 r-xp 00000000 fc:00 12322975                   /lib/x86_64-linux-gnu/libm-2.23.so
+7fa2be5d7000-7fa2be7d6000 ---p 00108000 fc:00 12322975                   /lib/x86_64-linux-gnu/libm-2.23.so
+7fa2be7d6000-7fa2be7d7000 r--p 00107000 fc:00 12322975                   /lib/x86_64-linux-gnu/libm-2.23.so
+7fa2be7d7000-7fa2be7d8000 rw-p 00108000 fc:00 12322975                   /lib/x86_64-linux-gnu/libm-2.23.so
+7fa2be7d8000-7fa2be94a000 r-xp 00000000 fc:00 5246691                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7fa2be94a000-7fa2beb4a000 ---p 00172000 fc:00 5246691                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7fa2beb4a000-7fa2beb54000 r--p 00172000 fc:00 5246691                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7fa2beb54000-7fa2beb56000 rw-p 0017c000 fc:00 5246691                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+7fa2beb56000-7fa2beb5a000 rw-p 00000000 00:00 0 
+7fa2beb5a000-7fa2beb9e000 r-xp 00000000 fc:00 5259371                    /usr/lib/x86_64-linux-gnu/libc++abi.so.1.0
+7fa2beb9e000-7fa2bed9e000 ---p 00044000 fc:00 5259371                    /usr/lib/x86_64-linux-gnu/libc++abi.so.1.0
+7fa2bed9e000-7fa2beda0000 r--p 00044000 fc:00 5259371                    /usr/lib/x86_64-linux-gnu/libc++abi.so.1.0
+7fa2beda0000-7fa2beda1000 rw-p 00046000 fc:00 5259371                    /usr/lib/x86_64-linux-gnu/libc++abi.so.1.0
+7fa2beda1000-7fa2bee7d000 r-xp 00000000 fc:00 5245453                    /usr/lib/x86_64-linux-gnu/libc++.so.1.0
+7fa2bee7d000-7fa2bf07d000 ---p 000dc000 fc:00 5245453                    /usr/lib/x86_64-linux-gnu/libc++.so.1.0
+7fa2bf07d000-7fa2bf083000 r--p 000dc000 fc:00 5245453                    /usr/lib/x86_64-linux-gnu/libc++.so.1.0
+7fa2bf083000-7fa2bf085000 rw-p 000e2000 fc:00 5245453                    /usr/lib/x86_64-linux-gnu/libc++.so.1.0
+7fa2bf085000-7fa2bf088000 rw-p 00000000 00:00 0 
+7fa2bf088000-7fa2bf0f2000 r-xp 00000000 fc:00 5638757                    /usr/local/cuda-9.1/lib64/libcudart.so.9.1.85
+7fa2bf0f2000-7fa2bf2f1000 ---p 0006a000 fc:00 5638757                    /usr/local/cuda-9.1/lib64/libcudart.so.9.1.85
+7fa2bf2f1000-7fa2bf2f5000 rw-p 00069000 fc:00 5638757                    /usr/local/cuda-9.1/lib64/libcudart.so.9.1.85
+7fa2bf2f5000-7fa2bf2f6000 rw-p 00000000 00:00 0 
+7fa2bf2f6000-7fa2c2647000 r-xp 00000000 fc:00 5638804                    /usr/local/cuda-9.1/lib64/libcublas.so.9.1.85
+7fa2c2647000-7fa2c2847000 ---p 03351000 fc:00 5638804                    /usr/local/cuda-9.1/lib64/libcublas.so.9.1.85
+7fa2c2847000-7fa2c287e000 rw-p 03351000 fc:00 5638804                    /usr/local/cuda-9.1/lib64/libcublas.so.9.1.85
+7fa2c287e000-7fa2c288d000 rw-p 00000000 00:00 0 
+7fa2c288d000-7fa2c28b3000 r-xp 00000000 fc:00 12322945                   /lib/x86_64-linux-gnu/ld-2.23.so
+7fa2c2a6c000-7fa2c2a7c000 -w-s 00000000 00:06 541                        /dev/nvidia2
+7fa2c2a8b000-7fa2c2a8c000 rw-p 00000000 00:00 0 
+7fa2c2a8c000-7fa2c2a8d000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a8d000-7fa2c2a8e000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a8e000-7fa2c2a8f000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a8f000-7fa2c2a90000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a90000-7fa2c2a91000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a91000-7fa2c2a92000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a92000-7fa2c2a93000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a93000-7fa2c2a94000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a94000-7fa2c2a95000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a95000-7fa2c2a96000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a96000-7fa2c2a97000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a97000-7fa2c2a98000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a98000-7fa2c2a99000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a99000-7fa2c2a9a000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a9a000-7fa2c2a9b000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a9b000-7fa2c2a9c000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2a9c000-7fa2c2aa4000 rw-p 00000000 00:00 0 
+7fa2c2aa4000-7fa2c2aa5000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aa5000-7fa2c2aa6000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aa6000-7fa2c2aa7000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aa7000-7fa2c2aa8000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aa8000-7fa2c2aa9000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aa9000-7fa2c2aaa000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aaa000-7fa2c2aab000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aab000-7fa2c2aac000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aac000-7fa2c2aad000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aad000-7fa2c2aae000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2aae000-7fa2c2aaf000 r--s 00000000 00:06 541                        /dev/nvidia2
+7fa2c2aaf000-7fa2c2ab0000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2ab0000-7fa2c2ab1000 rw-s 00000000 00:06 535                        /dev/nvidiactl
+7fa2c2ab1000-7fa2c2ab2000 rw-p 00000000 00:00 0 
+7fa2c2ab2000-7fa2c2ab3000 r--p 00025000 fc:00 12322945                   /lib/x86_64-linux-gnu/ld-2.23.so
+7fa2c2ab3000-7fa2c2ab4000 rw-p 00026000 fc:00 12322945                   /lib/x86_64-linux-gnu/ld-2.23.so
+7fa2c2ab4000-7fa2c2ab5000 rw-p 00000000 00:00 0 
+7fff6476c000-7fff6478d000 rw-p 00000000 00:00 0                          [stack]
+7fff64793000-7fff64796000 r--p 00000000 00:00 0                          [vvar]
+7fff64796000-7fff64798000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+Merit: /var/spool/slurmd/job04979/slurm_script: line 16:  1830 Aborted                 (core dumped) ./direct_cuda_pattern
+
+real	0m0.807s
+user	0m0.028s
+sys	0m0.556s

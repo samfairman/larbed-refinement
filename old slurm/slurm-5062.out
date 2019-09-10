@@ -1,0 +1,25 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+include/f/cuda_pattern/cuda_pattern.hpp:57:73: error: subscripted value is not an array, pointer, or vector
+            device_to_host_copy_n( data.cache+offset, a.size(), &a[0][0][0] );
+                                                                 ~~~~~~~^~
+1 error generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+Merit: 8.58439e-08
+ABS: 0.0011171
+
+ug=
+1	0	0.0005930819999999999842	-6.3790100000000002881e-09	0.0005930819999999999842	6.3790100000000002881e-09	0.082869600000000001594	-7.396030000000000153e-09	0.082869600000000001594	7.396030000000000153e-09	0.0005930819999999999842	6.3790100000000002881e-09	0.064142500000000005067	0	0.0005930819999999999842	-6.3790100000000002881e-09	0.064142500000000005067	0	
+
+a is 
+39.173624106188114524	-1.2097095514555872156e-08	-0.0029972559248681099331	0.018864794163230801105	0.0028053019634271003126	0.018783795309988499111	
+-0.0029968503952754136505	0.018864838652183558987	37.168405435385743374	14.44007072191087282	0.10243097230526325425	2.6286507873402737978	
+0.0028048981758471464194	0.018783875633434275743	0.10243144151224177485	2.6286507689134994692	35.883424185434300568	-18.534818968893436164	
+
+max dim 3, a.size = 18 ,data.cache =
+ 0x7f883c200000
+
+real	0m0.802s
+user	0m0.136s
+sys	0m0.628s
