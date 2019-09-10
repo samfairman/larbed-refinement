@@ -41,7 +41,7 @@ namespace f
         matrix_vector_type                      intensity;  //intensity[][][]
         complex_matrix_type                     ug;         //
         matrix_vector_type                      weights;  //weights[][][]
-matrix_vector_type i_push;
+//matrix_vector_type i_push;
 
         void dump( std::string const& path )
         {
