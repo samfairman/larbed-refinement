@@ -27,7 +27,10 @@ namespace f
         value_type*                         ug;
         complex_type*                       cache;
 
-        value_type*                         per_tilt_dim; //added by Sam
+//        std::vector<size_type>*           per_tilt_dim_vector; //added by Sam
+        size_type*                          per_tilt_dim_vector; //added by Sam
+
+        value_type*                         per_tilt_dim_cache; //added by Sam
 
         value_type*                         beams;//not used
         value_type*                         kt_factor;//not used
@@ -66,7 +69,6 @@ namespace f
             cuda_assert( cudaMalloc( reinterpret_cast<void**>(&dim), dim_size ) );
             cuda_assert( cudaMemset( reinterpret_cast<void*>(dim), 0, dim_size ) );
 
-
             size_type const I_exp_size = sizeof(value_type) * cpc.tilt_size * cpc.max_dim;
             cuda_assert( cudaMalloc( reinterpret_cast<void**>(&I_exp), I_exp_size ) );
             cuda_assert( cudaMemset( reinterpret_cast<void*>(I_exp), 0, I_exp_size ) );
@@ -87,9 +89,21 @@ namespace f
             cuda_assert( cudaMalloc( reinterpret_cast<void**>(&cache), cache_size ) );
             cuda_assert( cudaMemset( reinterpret_cast<void*>(cache), 0, cache_size ) );
 
-            //size_type const per_tilt_dim_size = sizeof(size_type) * cpc.tilt_size * std::inner_product(cpc.per_tilt_dim_size.begin(),cpc.per_tilt_dim_size.end(),cpc.per_tilt_dim_size.begin(),0.0) * 6; //added by Sam Fairman 09/10/2019
-            //cuda_assert( cudaMalloc( reinterpret_cast<void**>(&per_tilt_dim), per_tilt_dim_size) );
-            //cuda_assert( cudaMemset( reinterpret_cast<void*>(per_tilt_dim), 0, per_tilt_dim_size ) );
+//            size_type const per_tilt_dim_vector_size = sizeof(size_type) * cpc.tilt_size * cpc.per_tilt_dim_vector.size(); //added by Sam Fairman 09/10/2019
+//            cuda_assert( cudaMalloc( reinterpret_cast<void**>(&per_tilt_dim_vector), per_tilt_dim_vector_size) );
+//            cuda_assert( cudaMemset( reinterpret_cast<void*>(per_tilt_dim_vector), 0, per_tilt_dim_vector_size ) );
+
+            size_type const per_tilt_dim_vector_size = sizeof(size_type) * cpc.tilt_size * cpc.per_tilt_dim_vector.size(); //added by Sam Fairman 09/10/2019
+            cuda_assert( cudaMalloc( reinterpret_cast<void**>(&per_tilt_dim_vector), per_tilt_dim_vector_size) );
+            cuda_assert( cudaMemset( reinterpret_cast<void*>(per_tilt_dim_vector), 0, per_tilt_dim_vector_size ) );
+
+
+
+            size_type const per_tilt_dim_size = sizeof(size_type) * cpc.tilt_size * std::inner_product(cpc.per_tilt_dim_vector.begin(),cpc.per_tilt_dim_vector.end(),cpc.per_tilt_dim_vector.begin(),0.0) * 6; //added by Sam Fairman 09/10/2019
+            cuda_assert( cudaMalloc( reinterpret_cast<void**>(&per_tilt_dim_cache), per_tilt_dim_size) );
+            cuda_assert( cudaMemset( reinterpret_cast<void*>(per_tilt_dim_cache), 0, per_tilt_dim_size ) );
+
+
         }
 
         ~cuda_pattern_data()
@@ -109,7 +123,8 @@ namespace f
             if ( cache ) cuda_assert( cudaFree(cache) );
             if ( beams ) cuda_assert( cudaFree(beams) );
             if ( kt_factor ) cuda_assert( cudaFree(kt_factor) );
-            //if ( per_tilt_dim ) cuda_assert( cudaFree(per_tilt_dim) );
+            if ( per_tilt_dim_vector ) cuda_assert( cudaFree(per_tilt_dim_vector) );
+            if ( per_tilt_dim_cache ) cuda_assert( cudaFree(per_tilt_dim_cache) );
 
             ar = nullptr;
             dim = nullptr;
@@ -120,7 +135,8 @@ namespace f
             diag = nullptr;
             ug = nullptr;
             cache = nullptr;
-            //per_tilt_dim = nullptr;
+            per_tilt_dim_vector = nullptr;
+            per_tilt_dim_cache = nullptr;
         }
 
     };//struct cuda_pattern_data

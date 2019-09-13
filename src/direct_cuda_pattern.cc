@@ -10,7 +10,7 @@
 
 int main()
 {
-    double const thickness_ = 1;
+    int const thickness_ = 1;
     //int gpu_id = 1;
     int gpu_id = 0;
     double const init_thickness = thickness_;

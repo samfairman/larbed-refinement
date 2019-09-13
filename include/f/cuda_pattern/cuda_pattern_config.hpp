@@ -19,13 +19,17 @@ namespace f
         size_type                   tilt_size;
         size_type                   ug_size;
         size_type                   column_index;
-        std::vector<size_type>      per_tilt_dim_size;
+        
+        size_type 	per_tilt_dim_cache;
+        std::vector<unsigned long>            per_tilt_dim_vector;
+        //size_type*            per_tilt_dim_vector;
 
+        
         cuda_pattern_config() = delete;
 
         cuda_pattern_config( int device_id_ ) : device_id( device_id_ ) { }
 
-        cuda_pattern_config( cuda_pattern_config const& config ) : device_id( config.device_id ), thickness( config.thickness ), max_dim( config.max_dim ), tilt_size( config.tilt_size ), ug_size( config.ug_size ), column_index( config.column_index ), per_tilt_dim_size(config.per_tilt_dim_size)
+        cuda_pattern_config( cuda_pattern_config const& config ) : device_id( config.device_id ), thickness( config.thickness ), max_dim( config.max_dim ), tilt_size( config.tilt_size ), ug_size( config.ug_size ), column_index( config.column_index ), per_tilt_dim_cache(config.per_tilt_dim_cache),per_tilt_dim_vector(config.per_tilt_dim_vector)
         { }
 
         ~cuda_pattern_config() { }
@@ -39,10 +43,14 @@ namespace f
 
         config.thickness = std::imag( pat.thickness );
 
+config.per_tilt_dim_vector.resize(pat.diag.size());
+config.per_tilt_dim_cache=0;
+
         config.max_dim = 0;
         for ( unsigned long index = 0; index != pat.diag.size(); ++index ){
-            //config.per_tilt_dim_size[index]=(pat.diag[index]).size();
-            //std::cout<<"\nper tilt"<<index<<"\n"<<config.per_tilt_dim_size[index];
+            config.per_tilt_dim_vector[index]=pat.diag[index].size();
+            config.per_tilt_dim_cache += pat.diag[index].size();
+            std::cout<<"\nper tilt"<<index<<"\n"<<config.per_tilt_dim_cache;
             if ( config.max_dim < (pat.diag[index]).size() )
                 config.max_dim = pat.diag[index].size();}
 

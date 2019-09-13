@@ -450,7 +450,7 @@ make_individual_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, u
     cuda_assert( cudaDeviceSynchronize() );
 }
 
-void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim )
+void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, unsigned long* cuda_per_tilt_dim_vector, double* cuda_per_tilt_dim_cache )
 {
     unsigned long const threads = 64;
     unsigned long const grids = (tilt_size + threads - 1)/threads;
