@@ -20,8 +20,8 @@ namespace f
         size_type                   ug_size;
         size_type                   column_index;
         
-        size_type 	per_tilt_dim_cache;
-        std::vector<unsigned long>            per_tilt_dim_vector;
+        size_type 	                per_tilt_dim_cache;
+        std::vector<unsigned long>  per_tilt_dim_vector;
         //size_type*            per_tilt_dim_vector;
 
         

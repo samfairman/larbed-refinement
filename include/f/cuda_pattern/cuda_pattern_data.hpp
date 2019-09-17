@@ -27,8 +27,8 @@ namespace f
         value_type*                         ug;
         complex_type*                       cache;
 
-//        std::vector<size_type>*           per_tilt_dim_vector; //added by Sam
-        size_type*                          per_tilt_dim_vector; //added by Sam
+        std::vector<size_type>*           per_tilt_dim_vector; //added by Sam
+        //size_type*                          per_tilt_dim_vector; //added by Sam
 
         value_type*                         per_tilt_dim_cache; //added by Sam
 

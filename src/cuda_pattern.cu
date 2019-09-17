@@ -7,6 +7,7 @@
 
 #include <cuComplex.h>
 #include <math_functions.h>
+#include <vector>
 
 #if 1
 //should call with Dznrm2<<<1,128>>>(...)
@@ -305,7 +306,7 @@ sum_diag( double2* a, unsigned long dim, double real, double imag )
  * 6) extract one column
  */
 __global__ void
-make_individual_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long max_dim, unsigned long tilt_size )
+make_individual_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long max_dim, unsigned long tilt_size, unsigned long cuda_per_tilt_dim_cache, std::vector<unsigned long> &cuda_per_tilt_dim_vector )
 {
     unsigned long const tilt_index = blockDim.x * blockIdx.x + threadIdx.x;
 
@@ -450,12 +451,12 @@ make_individual_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, u
     cuda_assert( cudaDeviceSynchronize() );
 }
 
-void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, unsigned long cuda_per_tilt_dim_cache) //unsigned long* cuda_per_tilt_dim_vector )
+void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, unsigned long cuda_per_tilt_dim_cache, std::vector<unsigned long> &cuda_per_tilt_dim_vector )
 {
     unsigned long const threads = 64;
     unsigned long const grids = (tilt_size + threads - 1)/threads;
 
-    kernel_assert( ( make_individual_pattern_intensity_diff<<<grids, threads>>>( cuda_weights, cuda_ug, cuda_ar, cuda_diag, thickness, cuda_dim, cuda_I_exp, cuda_I_diff, column_index, cuda_cache, max_dim, tilt_size ) ) );
+    kernel_assert( ( make_individual_pattern_intensity_diff<<<grids, threads>>>( cuda_weights, cuda_ug, cuda_ar, cuda_diag, thickness, cuda_dim, cuda_I_exp, cuda_I_diff, column_index, cuda_cache, max_dim, tilt_size, cuda_per_tilt_dim_cache, cuda_per_tilt_dim_vector ) ) );
     cuda_assert( cudaDeviceSynchronize() );
 }
 
