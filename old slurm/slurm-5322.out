@@ -1,0 +1,15 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+In file included from include/f/cuda_pattern/cuda_pattern.hpp:6:
+include/f/cuda_pattern/cuda_pattern_data.hpp:90:70: error: indirection requires pointer operand ('const std::vector<unsigned long>' invalid)
+            size_type const per_tilt_dim = sizeof(size_type) * sizeof*(cpc.per_tilt_dim); //added by Sam Fairman 09/10/2019
+                                                                     ^~~~~~~~~~~~~~~~~~~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+2 errors generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+/var/spool/slurmd/job05322/slurm_script: line 16: ./direct_cuda_pattern: No such file or directory
+
+real	0m0.024s
+user	0m0.000s
+sys	0m0.000s

@@ -1,0 +1,18 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+include/f/cuda_pattern/cuda_pattern.hpp:18:310: error: no template named 'size_type'; did you mean 'std::__size_type'?
+void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, std::vector<size_type> &per_tilt_dim_size );
+                                                                                                                                                                                                                                                                                                                     ^~~~~~~~~
+                                                                                                                                                                                                                                                                                                                     std::__size_type
+/usr/include/c++/v1/memory:1081:8: note: 'std::__size_type' declared here
+struct __size_type
+       ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+2 errors generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+/var/spool/slurmd/job05203/slurm_script: line 16: 101482 Illegal instruction     (core dumped) ./direct_cuda_pattern
+
+real	0m0.089s
+user	0m0.000s
+sys	0m0.004s

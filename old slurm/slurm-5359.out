@@ -1,0 +1,16 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+include/f/cuda_pattern/cuda_pattern.hpp:211:13: error: no matching function for call to 'make_pattern_intensity_diff'
+            make_pattern_intensity_diff( data.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim, config.per_tilt_dim_vector, config.per_tilt_dim_cache);  
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/f/cuda_pattern/cuda_pattern.hpp:18:6: note: candidate function not viable: no known conversion from 'std::vector<unsigned long>' to 'unsigned long *' for 13th argument
+void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, unsigned long* per_tilt_dim_vector,unsigned long* per_tilt_dim_cache);  
+     ^
+1 error generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+/var/spool/slurmd/job05359/slurm_script: line 16: ./direct_cuda_pattern: No such file or directory
+
+real	0m0.004s
+user	0m0.000s
+sys	0m0.000s

@@ -1,0 +1,166 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+In file included from include/f/cuda_pattern/cuda_pattern.hpp:5:
+include/f/cuda_pattern/cuda_pattern_config.hpp:47:26: error: invalid operands to binary expression ('basic_ostream<char, std::__1::char_traits<char> >' and 'std::vector<size_type>' (aka 'vector<unsigned long>'))
+std::cout<<"\nper tilt\n"<<config.per_tilt_dim;
+~~~~~~~~~~~~~~~~~~~~~~~~~^ ~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/v1/ostream:207:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'const void *' for 1st argument; take the address of the argument with &
+    basic_ostream& operator<<(const void* __p);
+                   ^
+/usr/include/c++/v1/ostream:191:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'std::__1::basic_ostream<char> &(*)(std::__1::basic_ostream<char> &)' for 1st argument
+    basic_ostream& operator<<(basic_ostream& (*__pf)(basic_ostream&));
+                   ^
+/usr/include/c++/v1/ostream:192:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'basic_ios<char_type, traits_type> &(*)(basic_ios<char_type, traits_type> &)' (aka 'basic_ios<char, std::__1::char_traits<char> > &(*)(basic_ios<char, std::__1::char_traits<char> > &)') for 1st argument
+    basic_ostream& operator<<(basic_ios<char_type, traits_type>&
+                   ^
+/usr/include/c++/v1/ostream:194:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'std::__1::ios_base &(*)(std::__1::ios_base &)' for 1st argument
+    basic_ostream& operator<<(ios_base& (*__pf)(ios_base&));
+                   ^
+/usr/include/c++/v1/ostream:195:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'bool' for 1st argument
+    basic_ostream& operator<<(bool __n);
+                   ^
+/usr/include/c++/v1/ostream:196:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'short' for 1st argument
+    basic_ostream& operator<<(short __n);
+                   ^
+/usr/include/c++/v1/ostream:197:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'unsigned short' for 1st argument
+    basic_ostream& operator<<(unsigned short __n);
+                   ^
+/usr/include/c++/v1/ostream:198:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'int' for 1st argument
+    basic_ostream& operator<<(int __n);
+                   ^
+/usr/include/c++/v1/ostream:199:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'unsigned int' for 1st argument
+    basic_ostream& operator<<(unsigned int __n);
+                   ^
+/usr/include/c++/v1/ostream:200:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'long' for 1st argument
+    basic_ostream& operator<<(long __n);
+                   ^
+/usr/include/c++/v1/ostream:201:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'unsigned long' for 1st argument
+    basic_ostream& operator<<(unsigned long __n);
+                   ^
+/usr/include/c++/v1/ostream:202:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'long long' for 1st argument
+    basic_ostream& operator<<(long long __n);
+                   ^
+/usr/include/c++/v1/ostream:203:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'unsigned long long' for 1st argument
+    basic_ostream& operator<<(unsigned long long __n);
+                   ^
+/usr/include/c++/v1/ostream:204:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'float' for 1st argument
+    basic_ostream& operator<<(float __f);
+                   ^
+/usr/include/c++/v1/ostream:205:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'double' for 1st argument
+    basic_ostream& operator<<(double __f);
+                   ^
+/usr/include/c++/v1/ostream:206:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'long double' for 1st argument
+    basic_ostream& operator<<(long double __f);
+                   ^
+/usr/include/c++/v1/ostream:208:20: note: candidate function not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'basic_streambuf<char_type, traits_type> *' (aka 'basic_streambuf<char, std::__1::char_traits<char> > *') for 1st argument
+    basic_ostream& operator<<(basic_streambuf<char_type, traits_type>* __sb);
+                   ^
+/usr/include/c++/v1/ostream:785:1: note: candidate function [with _CharT = char, _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'char' for 2nd argument
+operator<<(basic_ostream<_CharT, _Traits>& __os, char __cn)
+^
+/usr/include/c++/v1/ostream:818:1: note: candidate function [with _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'char' for 2nd argument
+operator<<(basic_ostream<char, _Traits>& __os, char __c)
+^
+/usr/include/c++/v1/ostream:825:1: note: candidate function [with _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'signed char' for 2nd argument
+operator<<(basic_ostream<char, _Traits>& __os, signed char __c)
+^
+/usr/include/c++/v1/ostream:832:1: note: candidate function [with _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'unsigned char' for 2nd argument
+operator<<(basic_ostream<char, _Traits>& __os, unsigned char __c)
+^
+/usr/include/c++/v1/ostream:846:1: note: candidate function [with _CharT = char, _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'const char *' for 2nd argument
+operator<<(basic_ostream<_CharT, _Traits>& __os, const char* __strn)
+^
+/usr/include/c++/v1/ostream:892:1: note: candidate function [with _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'const char *' for 2nd argument
+operator<<(basic_ostream<char, _Traits>& __os, const char* __str)
+^
+/usr/include/c++/v1/ostream:899:1: note: candidate function [with _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'const signed char *' for 2nd argument
+operator<<(basic_ostream<char, _Traits>& __os, const signed char* __str)
+^
+/usr/include/c++/v1/ostream:907:1: note: candidate function [with _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'const unsigned char *' for 2nd argument
+operator<<(basic_ostream<char, _Traits>& __os, const unsigned char* __str)
+^
+/usr/include/c++/v1/ostream:1086:1: note: candidate function [with _CharT = char, _Traits = std::__1::char_traits<char>] not viable: no known conversion from 'std::vector<size_type>' (aka 'vector<unsigned long>') to 'const std::__1::error_code' for 2nd argument
+operator<<(basic_ostream<_CharT, _Traits>& __os, const error_code& __ec)
+^
+/usr/include/c++/v1/ostream:778:1: note: candidate template ignored: deduced conflicting types for parameter '_CharT' ('char' vs. 'std::__1::vector<unsigned long, std::__1::allocator<unsigned long> >')
+operator<<(basic_ostream<_CharT, _Traits>& __os, _CharT __c)
+^
+/usr/include/c++/v1/ostream:1094:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<<(basic_ostream<_CharT, _Traits>& __os, shared_ptr<_Yp> const& __p)
+^
+/usr/include/c++/v1/ostream:1063:5: note: candidate template ignored: disabled by 'enable_if' [with _Stream = std::__1::basic_ostream<char> &, _Tp = std::__1::vector<unsigned long, std::__1::allocator<unsigned long> >]
+    !is_lvalue_reference<_Stream>::value &&
+    ^
+/usr/include/c++/v1/ostream:839:1: note: candidate template ignored: could not match 'const _CharT *' against 'std::vector<size_type>' (aka 'vector<unsigned long>')
+operator<<(basic_ostream<_CharT, _Traits>& __os, const _CharT* __str)
+^
+/usr/include/c++/v1/ostream:1077:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator<<(basic_ostream<_CharT, _Traits>& __os,
+^
+/usr/include/c++/v1/valarray:4008:1: note: candidate template ignored: substitution failure [with _Expr1 = std::__1::basic_ostream<char>, _Expr2 = std::__1::vector<unsigned long, std::__1::allocator<unsigned long> >]: no type named 'value_type' in 'std::__1::basic_ostream<char>'
+operator<<(const _Expr1& __x, const _Expr2& __y)
+^
+/usr/include/c++/v1/ostream:1101:1: note: candidate template ignored: could not match 'bitset' against 'vector'
+operator<<(basic_ostream<_CharT, _Traits>& __os, const bitset<_Size>& __x)
+^
+/usr/include/c++/v1/iomanip:481:1: note: candidate template ignored: could not match '__iom_t10' against 'vector'
+operator<<(basic_ostream<_CharT, _Traits>& __os, const __iom_t10<_CharT>& __x)
+^
+/usr/include/c++/v1/iomanip:586:33: note: candidate template ignored: could not match '__quoted_output_proxy' against 'vector'
+basic_ostream<_CharT, _Traits>& operator<<(
+                                ^
+/usr/include/c++/v1/valarray:4023:1: note: candidate template ignored: substitution failure [with _Expr = std::__1::basic_ostream<char>]: no type named 'value_type' in 'std::__1::basic_ostream<char>'
+operator<<(const _Expr& __x, const typename _Expr::value_type& __y)
+^
+/usr/include/c++/v1/valarray:4035:5: note: candidate template ignored: disabled by 'enable_if' [with _Expr = std::__1::vector<unsigned long, std::__1::allocator<unsigned long> >]
+    __is_val_expr<_Expr>::value,
+    ^
+/usr/include/c++/v1/complex:1514:1: note: candidate template ignored: could not match 'complex' against 'vector'
+operator<<(basic_ostream<_CharT, _Traits>& __os, const complex<_Tp>& __x)
+^
+/usr/include/c++/v1/iomanip:361:1: note: candidate template ignored: could not match '__iom_t8' against 'vector'
+operator<<(basic_ostream<_CharT, _Traits>& __os, const __iom_t8<_MoneyT>& __x)
+^
+/usr/include/c++/v1/iomanip:606:33: note: candidate template ignored: could not match '__quoted_proxy' against 'vector'
+basic_ostream<_CharT, _Traits>& operator<<(
+                                ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+2 errors generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+Merit: 
+before update_I_diff, dupm I_diff
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+0	0	0	0	0	
+
+
+square residual is 0
+
+before update_I_diff, dupm I_exp
+0.99999762000000003148	7.2999999999999999873e-07	7.2999999999999999873e-07	0	0	
+
+data.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim 
+0x7ff030401400 , 0x7ff030400400 , 0x7ff030400600 , 0x7ff030400a00 , 1 , 0x7ff030400c00 , 0x7ff030400e00 , 0x7ff030401000 , 0 , 0x7ff030200000 , 5 , 5
+
+after update_I_diff, dupm I_diff
+-1.6922272488839595894e-06	3.7692244333933922353e-07	3.9530480342632047543e-07	0	0	
+-0.0001071765249817113741	5.3378263119417302556e-05	5.3378261862752615153e-05	0	0	
+-0.00010700652547734890163	5.3298263367276518029e-05	5.3298262110608476375e-05	0	0	
+-6.8129308311348779625e-05	7.3428384480624247512e-05	-0.004094623624803206928	3.2647708758382469889e-05	3.2648893116033944942e-05	
+-1.6922272484398703796e-06	3.7692126939927593958e-07	3.9530597736638354762e-07	0	0	
+
+
+square residual is 1.6812431197579847145e-05
+
+after update_I_diff, dupm I_exp
+0.99999762000000003148	7.2999999999999999873e-07	7.2999999999999999873e-07	0	0	
+
+
+1.6812431197579847145e-05
+
+real	0m0.779s
+user	0m0.136s
+sys	0m0.616s

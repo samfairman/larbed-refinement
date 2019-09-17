@@ -1,0 +1,21 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:3:
+In file included from include/f/cuda_pattern/cuda_pattern.hpp:6:
+include/f/cuda_pattern/cuda_pattern_data.hpp:90:80: error: no matching function for call to 'inner_product'
+            size_type const per_tilt_dim = sizeof(size_type) * cpc.tilt_size * std::inner_product(cpc.per_tilt_dim,cpc.per_tilt_dim.size(),cpc.per_tilt_dim,0.0) * 6; //added by Sam Fairman 09/10/2019
+                                                                               ^~~~~~~~~~~~~~~~~~
+/usr/include/c++/v1/numeric:92:1: note: candidate template ignored: deduced conflicting types for parameter '_InputIterator1' ('std::__1::vector<unsigned long, std::__1::allocator<unsigned long> >' vs. 'unsigned long')
+inner_product(_InputIterator1 __first1, _InputIterator1 __last1, _InputIterator2 __first2, _Tp __init)
+^
+/usr/include/c++/v1/numeric:102:1: note: candidate function template not viable: requires 6 arguments, but 4 were provided
+inner_product(_InputIterator1 __first1, _InputIterator1 __last1, _InputIterator2 __first2,
+^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+2 errors generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+/var/spool/slurmd/job05185/slurm_script: line 16: 98984 Segmentation fault      (core dumped) ./direct_cuda_pattern
+
+real	0m0.089s
+user	0m0.000s
+sys	0m0.000s

@@ -1,0 +1,20 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+In file included from src/direct_cuda_pattern.cc:1:
+In file included from include/f/optimization/nonlinear/steepest_descent.hpp:4:
+In file included from include/f/matrix/matrix.hpp:7:
+In file included from include/f/matrix/impl/matrix_impl.hpp:31:
+In file included from include/f/matrix/impl/crtp/multiply_equal_operator.hpp:7:
+/usr/include/c++/v1/numeric:95:27: error: indirection requires pointer operand ('double' invalid)
+        __init = __init + *__first1 * *__first2;
+                          ^~~~~~~~~
+src/direct_cuda_pattern.cc:51:17: note: in instantiation of function template specialization 'std::__1::inner_product<double, double, double>' requested here
+std::cout<<std::inner_product(1.0,10.0,1.0,0.0);
+                ^
+1 error generated.
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+/var/spool/slurmd/job05189/slurm_script: line 16: 99265 Segmentation fault      (core dumped) ./direct_cuda_pattern
+
+real	0m0.089s
+user	0m0.000s
+sys	0m0.000s

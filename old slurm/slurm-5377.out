@@ -1,0 +1,14 @@
+clang++ -std=c++14 -stdlib=libc++ -O3 -ferror-limit=2 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-sign-conversion -Wno-exit-time-destructors -Wno-float-equal -Wno-global-constructors -Wno-missing-declarations -Wno-unused-parameter -Wno-padded -Wno-shadow -Wno-weak-vtables -Wno-missing-prototypes -Wno-unused-variable -ferror-limit=1 -Wno-deprecated -Wno-conversion -Wno-double-promotion -c src/direct_cuda_pattern.cc -o ./obj/direct_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1
+nvcc src/cuda_pattern.cu -o ./obj/_cuda_pattern.o -Iinclude -I/usr/local/cuda/include -I/usr/local/include -I/usr/include/c++/v1 -m64 -dc -gencode arch=compute_70,code=sm_70 --relocatable-device-code true  -Xptxas -v
+src/cuda_pattern.cu(453): error: namespace "std" has no member "vector"
+
+src/cuda_pattern.cu(453): error: expected a ")"
+
+2 errors detected in the compilation of "/tmp/tmpxft_00010bd1_00000000-6_cuda_pattern.cpp1.ii".
+Makefile:28: recipe for target 'direct_cuda_pattern' failed
+make: *** [direct_cuda_pattern] Error 1
+/var/spool/slurmd/job05377/slurm_script: line 16: ./direct_cuda_pattern: No such file or directory
+
+real	0m0.018s
+user	0m0.000s
+sys	0m0.000s
