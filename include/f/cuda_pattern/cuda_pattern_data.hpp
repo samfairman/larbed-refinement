@@ -97,8 +97,6 @@ namespace f
             cuda_assert( cudaMalloc( reinterpret_cast<void**>(&per_tilt_dim_vector), per_tilt_dim_vector_size) );
             cuda_assert( cudaMemset( reinterpret_cast<void*>(per_tilt_dim_vector), 0, per_tilt_dim_vector_size ) );
 
-
-
             size_type const per_tilt_dim_size = sizeof(size_type) * cpc.tilt_size * std::inner_product(cpc.per_tilt_dim_vector.begin(),cpc.per_tilt_dim_vector.end(),cpc.per_tilt_dim_vector.begin(),0.0) * 6; //added by Sam Fairman 09/10/2019
             cuda_assert( cudaMalloc( reinterpret_cast<void**>(&per_tilt_dim_cache), per_tilt_dim_size) );
             cuda_assert( cudaMemset( reinterpret_cast<void*>(per_tilt_dim_cache), 0, per_tilt_dim_size ) );

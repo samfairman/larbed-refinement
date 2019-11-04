@@ -45,9 +45,8 @@ namespace f
         {
             //std::vector<matrix<std::complex<double>>> a{ config.max_dim,config.max_dim*2*config.tilt_size*6};
             //matrix<double> a{ config.max_dim, config.max_dim+config.max_dim };
-            //matrix<double> a{ 6*config.max_dim*config.max_dim*config.tilt_size,2};
-            matrix<double> a{ 5, 10 }; // manually define A matrix to dump
-
+            matrix<double> a{ 6 * config.max_dim * config.max_dim * config.tilt_size, 2};
+            //matrix<double> a{ 5, 10 }; // manually define A matrix to dump
 
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );

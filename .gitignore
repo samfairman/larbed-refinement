@@ -8,7 +8,9 @@ orig
 *.img
 *.log
 *.o
+*.out
 *.orig
 *.ps
 .*.swp
 .DS_Store
+testdata

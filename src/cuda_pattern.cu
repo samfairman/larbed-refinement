@@ -313,6 +313,8 @@ make_individual_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, u
     if ( tilt_index >= tilt_size ) return;
 
     unsigned long const dim = *(cuda_dim + tilt_index);
+//std::vector<unsigned long> const dim_vector = *(cuda_per_tilt_dim_vector + tilt_index);
+
     double* ug = cuda_ug;
     unsigned long* ar = cuda_ar + tilt_index * max_dim * max_dim;
     double* diag = cuda_diag + tilt_index * max_dim;

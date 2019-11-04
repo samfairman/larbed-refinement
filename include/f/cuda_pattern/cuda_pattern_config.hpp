@@ -50,9 +50,10 @@ config.per_tilt_dim_cache=0;
         for ( unsigned long index = 0; index != pat.diag.size(); ++index ){
             config.per_tilt_dim_vector[index]=pat.diag[index].size();
             config.per_tilt_dim_cache += pat.diag[index].size();
-            std::cout<<"\nper tilt"<<index<<"\n"<<config.per_tilt_dim_cache<<std::endl;
+            //std::cout<<"\nper tilt"<<index<<"\n"<<config.per_tilt_dim_cache<<std::endl;
             if ( config.max_dim < (pat.diag[index]).size() )
                 config.max_dim = pat.diag[index].size();}
+        //config.max_dim = 5; //SAM
 
 
 

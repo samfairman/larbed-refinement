@@ -18,19 +18,19 @@ int main()
     //auto pt = f::make_simulated_pattern("/testpool/ops/samfairman/larbed-refinement/testdata/new_txt", thickness);
 
 #if 1
-    auto pt = f::make_pattern("/testpool/ops/samfairman/larbed-refinement/testdata/new_txt", thickness);
+    auto pt = f::make_pattern("/testpool/ops/samfairman/feng_MC19/testdata/new_txt_unequal_A_matrix", thickness);
     {   //update fake ug
         f::matrix<double> ug;
-        ug.load( "/testpool/ops/samfairman/larbed-refinement/testdata/new_txt/ug.txt" );
+        ug.load( "/testpool/ops/samfairman/feng_MC19/testdata/new_txt_unequal_A_matrix/ug.txt" );
         pt.update_ug( ug );
     }
     //pt.simulate_intensity();
 #endif    
-    
+
     f::cuda_pattern cpt{ pt, gpu_id };
 
     f::matrix<double> actual_ug;
-    actual_ug.load( "/testpool/ops/samfairman/larbed-4-working-folder/icecap1/testdata/new_txt/ug.txt" );
+    actual_ug.load( "/testpool/ops/samfairman/feng_MC19/testdata/new_txt_unequal_A_matrix/ug.txt" );
 
     std::vector<double> ug_initial;
     ug_initial.resize( pt.ug_size*2 + 1 );
@@ -46,7 +46,7 @@ int main()
     std::cout << "Merit: " << merit_function( ug_initial.data() ) << std::endl;
     //std::cout << "ABS: " << abs_function( ug_initial.data() ) << std::endl;
     //cpt.dump_ug();
-    //cpt.dump_a();
+    cpt.dump_a();
 
 
 //for(int index=0; index<80; index++)
