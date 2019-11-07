@@ -15,101 +15,112 @@
 #include <iostream>
 #include <iomanip>
 
-void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, 
-                                 unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, unsigned long cuda_per_tilt_dim_cache, std::vector<unsigned long> &cuda_per_tilt_dim_vector );
+void make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, double2* a );
+
 namespace f
 {
-
+    
     struct cuda_pattern
     {
         typedef double                  value_type;
         typedef unsigned long int       size_type;
-
+        
         cuda_pattern_config             config;
         cuda_pattern_data               data;
-
+        
         void dump_ug()
         {
             matrix<double> ug{ 1, config.ug_size*2 };
-
+            
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
+            
             device_to_host_copy_n( data.ug, ug.size(), &ug[0][0] );
-
+            
             std::cout << "\nug=\n" << ug << "\n";
         }
-
+        
         void dump_a()
         {
-            //std::vector<matrix<std::complex<double>>> a{ config.max_dim,config.max_dim*2*config.tilt_size*6};
-            //matrix<double> a{ config.max_dim, config.max_dim+config.max_dim };
-            matrix<double> a{ 6 * config.max_dim * config.max_dim * config.tilt_size, 2};
-            //matrix<double> a{ 5, 10 }; // manually define A matrix to dump
-
+            std::vector<double> a; // cache GPU memory of A
+            //matrix<double> a{ 6 * 2 * config.tilt_size * config.max_dim * config.max_dim };
+            a.resize( 6 * 2 * config.tilt_size * config.max_dim * config.max_dim );
+            std::cout<<"\nconfig.tilt_size = "<<config.tilt_size<<"\n"<<std::endl;
+            std::cout<<"\na.size() = "<<a.size()<<"\n"<<std::endl;
+            
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
-            unsigned long offset = 6 * config.max_dim * config.max_dim * 0 * 1; //6*maxdim*maxdim*tilt_index*2 //times 2 because complex type.
-
-            device_to_host_copy_n( data.cache+offset, a.size(), &a[0][0] );
-            std::cout << "a is \n";
-            std::cout << a << "\n";
-
-            a.save_as( "/testpool/ops/samfairman/larbed-refinement/bin/_dumped_a.txt" );
-
-            std::cout<<" max dim " << config.max_dim << ", a.size = " << a.size()<<" ,data.cache =\n "<<data.cache << ", offset =" <<offset<<std::endl;
-
+            //device_to_host_copy_n( data.a, a.size(), &a[0] );
+            device_to_host_copy_n( data.cache, a.size(), &a[0] );
+            
+            std::vector<size_type> dims; // cache dimension of each matrix
+            dims.resize( config.tilt_size );
+            device_to_host_copy_n( data.dim, config.tilt_size, dims.data() );
+            std::cout<<"\ndims.data() = "<<dims.data()<<"\n"<<std::endl;
+            double const matrix_offset = 6 * 2 * config.max_dim * config.max_dim;
+            for ( unsigned long idx = 0; idx != config.tilt_size; ++idx )
+            {
+                int idx_string = (int)idx;
+                matrix<double> mat{ dims[idx], dims[idx]*2 };
+                std::copy_n( a.begin() + (idx * matrix_offset), mat.size(), mat.data()); // direct memory copy
+                std::cout<<"\nmat.data() for dims["<<idx<<"] = "<<mat.data()<<"\n"<<std::endl;
+                mat.save_as( std::string{"./dumped_a_"} + std::to_string(idx_string) + std::string{".txt"} );
+                //a.save_as( std::string{"./dumped_a_full"}  + std::string{".txt"} );
+            }
+            std::cout<<"\n max dim " << config.max_dim << ", a.size = " << a.size()<<" ,data.cache = "<<data.cache << ", offset =" <<matrix_offset<<"\n<<"<<std::endl;
+            matrix<double> output{ 6 * config.max_dim * config.max_dim * config.tilt_size, 2};;
+            std::copy_n(a.begin(),a.size(),output.data());
+            output.save_as( std::string{"./dumped_a_full"}  + std::string{".txt"} );
         }
-
+        
         void dump_I_diff()
         {
             matrix<double> Idiff{ config.tilt_size, config.max_dim };
-
+            
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
+            
             //cuda_assert( cudaMemcpy( reinterpret_cast<void*>(Idiff.data()), reinterpret_cast<const void*>(data.I_diff), sizeof(value_type) * Idiff.size(), cudaMemcpyDeviceToHost ) );
             device_to_host_copy( data.I_diff, data.I_diff + Idiff.size(), &Idiff[0][0] );
-
+            
             //std::cout << "\ndumped I_diff is \n" << Idiff << "\n";
             std::cout.precision( 15 );
             //std::copy( Idiff.row_begin(0), Idiff.row_end(), std::ostream_iterator<double>( std::cout, "\t" ) );
             //std::cout << "\n";
             std::cout << Idiff << "\n";
-
+            
             //std::fill( Idiff.col_begin(0), Idiff.col_end(0), 0.0 );
             std::cout << "\nsquare residual is " << std::inner_product( Idiff.begin(), Idiff.end(), Idiff.begin(), 0.0 ) << "\n";
-
+            
         }
-
+        
         void dump_I_exp()
         {
             matrix<double> Iexp{ config.tilt_size, config.max_dim };
-
+            
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
+            
             cuda_assert( cudaMemcpy( reinterpret_cast<void*>(Iexp.data()), reinterpret_cast<const void*>(data.I_exp), sizeof(value_type) * Iexp.size(), cudaMemcpyDeviceToHost ) );
-
+            
             //std::cout << "\ndumped I_exp is \n" << Iexp << "\n";
             std::copy( Iexp.row_begin(0), Iexp.row_end(), std::ostream_iterator<double>( std::cout, "\t" ) );
             std::cout << "\n";
         }
-
+        
         cuda_pattern( pattern<value_type> const& pat, int device_id = 0 ) : config{ make_cuda_pattern_config( pat, device_id ) }, data{ config }
         {
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
+            
             import( pat );
         }
-
+        
         std::function<value_type(value_type*)> make_merit_function()
         {
             return [this]( value_type* p )
@@ -119,7 +130,7 @@ namespace f
                 return (*this).square_residual( ug, thickness );
             };
         }
-
+        
         std::function<value_type(value_type*)> make_abs_function()
         {
             return [this]( value_type* p )
@@ -129,18 +140,18 @@ namespace f
                 return (*this).abs_residual( ug, thickness );
             };
         }
-
-
+        
+        
     private:
-
+        
         value_type square_residual( value_type* ug, value_type thickness )
         {
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
+            
             update_I_diff(ug, thickness);
-
+            
             value_type residual;
             cublasHandle_t handle;
             cublas_assert( cublasCreate_v2(&handle) );
@@ -148,29 +159,29 @@ namespace f
             cublas_assert( cublasDestroy_v2(handle) );
             return residual;
         }
-
+        
         value_type abs_residual( value_type* ug, value_type thickness )
         {
             int current_id;
             cuda_assert( cudaGetDevice(&current_id) );
             if ( current_id != config.device_id ) cuda_assert( cudaSetDevice( config.device_id ) );
-
+            
             update_I_diff(ug, thickness);
-
+            
             value_type residual;
             cublasHandle_t handle;
             cublas_assert( cublasCreate_v2(&handle) );
             //cublas_assert( cublasDnrm2_v2( handle, config.max_dim*config.tilt_size, data.I_diff, 1, &residual ) );
             cublas_assert( cublasDasum_v2( handle, static_cast<int>(config.max_dim*config.tilt_size), data.I_diff, 1, &residual ) );
             cublas_assert( cublasDestroy_v2(handle) );
-
+            
             return residual;
         }
-
+        
         void import( pattern<value_type> const& pat )
         {
             std::vector<size_type> v_dims;
-
+            
             for ( size_type index = 0; index != config.tilt_size; ++index )
             {
                 //std::cerr << "Importing pattern index " << index << "\n";
@@ -190,42 +201,38 @@ namespace f
                 cuda_assert( cudaMemcpy( reinterpret_cast<void*>(data.I_exp + I_exp_offset), reinterpret_cast<const void*>(pat.intensity[index].data()), I_exp_size, cudaMemcpyHostToDevice ) );
                 //copy weights
                 cuda_assert( cudaMemcpy( reinterpret_cast<void*>(data.weights + I_exp_offset), reinterpret_cast<const void*>(pat.weights[index].data()), I_exp_size, cudaMemcpyHostToDevice ) );
-
+                
             }
-
+            
             cuda_assert( cudaMemcpy( reinterpret_cast<void*>(data.dim), reinterpret_cast<const void*>(v_dims.data()), sizeof(size_type) * v_dims.size(), cudaMemcpyHostToDevice ) );
-
+            
         }
-
+        
         void update_I_diff( value_type* ug, value_type thickness )
         {
             update_thickness( thickness );
             update_ug( ug );
-            #include <typeinfo>
-            //std::cout<<"config.per_tilt_dim type= "<<typeid(config.per_tilt_dim_vector).name()<<std::endl;
-            //std::cout<<"config.per_tilt_dim_cache type= "<<typeid(config.per_tilt_dim_cache).name()<<std::endl;
+            
             //std::cout << "\nbefore update_I_diff, dupm I_diff\n";
             //dump_I_diff();
-
+            
             //std::cout << "\nbefore update_I_diff, dupm I_exp\n";
             //dump_I_exp();
-//            make_pattern_intensity_diff( double* cuda_weights, double* cuda_ug, unsigned long* cuda_ar, double* cuda_diag, double thickness, unsigned long* cuda_dim, double* cuda_I_exp, double* cuda_I_diff, unsigned long column_index, double2* cuda_cache, unsigned long tilt_size, unsigned long max_dim, unsigned long* per_tilt_dim_vector,  unsigned long per_tilt_dim_cache); 
-            make_pattern_intensity_diff( data.weights,         data.ug,                         data.ar,         data.diag, config.thickness,               data.dim,          data.I_exp,        data.I_diff,         config.column_index,          data.cache,        config.tilt_size,        config.max_dim,         config.per_tilt_dim_cache,    config.per_tilt_dim_vector );
-
-//std::cout << "\ndata.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim \n"<<data.weights<<" , "<<data.ug<<" , "<<data.ar<<" , "<<data.diag<<" , "<< config.thickness<<" , "<< data.dim<<" , "<< data.I_exp<<" , "<< data.I_diff<<" , "<< config.column_index<<" , "<<data.cache<<" , "<< config.tilt_size<<" , "<< config.max_dim << ", config.per_tilt_dim_size = "<<config.per_tilt_dim_size[0]<<","<<config.per_tilt_dim_size[1]<<","<<config.per_tilt_dim_size[2]<<","<<config.per_tilt_dim_size[3]<<","<<config.per_tilt_dim_size[4]<<","<<std::endl;;
-
+            
+            make_pattern_intensity_diff( data.weights, data.ug, data.ar, data.diag, config.thickness, data.dim, data.I_exp, data.I_diff, config.column_index, data.cache, config.tilt_size, config.max_dim, data.a );
+            
             //std::cout << "\nafter update_I_diff, dupm I_diff\n";
             //dump_I_diff();
             //std::cout << "\nafter update_I_diff, dupm I_exp\n";
             //dump_I_exp();
             //std::cout << "\n\n";
         }
-
+        
         void update_thickness( value_type thickness )
         {
             config.thickness = thickness;
         }
-
+        
         void update_ug( value_type* ug )
         {
             //std::cout << "\nevaluating ug: \n";
@@ -233,9 +240,9 @@ namespace f
             //std::cout << "\n";
             cuda_assert( cudaMemcpy( reinterpret_cast<void*>(data.ug), reinterpret_cast<const void*>(ug), config.ug_size*sizeof(value_type)*2, cudaMemcpyHostToDevice ) );
         }
-
+        
     };//struct cuda_pattern
-
+    
 }
 
 #endif//RYNCOTPHKOETCWOVPFBVYHBNDJXWDGXTWROWURBLAWEEJDBVJCLRJJPWBVMQYXFXNHPXMKUSV
